@@ -1,27 +1,35 @@
 import React from 'react';
+import { Text, View } from 'native-base';
 import {NativeBaseProvider} from 'native-base';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from 'screens/HomeScreen';
+import HomeScreenAR from 'screens/HomeScreenAR';
 import AgentsScreen from 'screens/AgentsScreen';
 import AllAgentsScreen from 'screens/AllAgentsScreen';
+import AllAgentsScreenAR from 'screens/AllAgentsScreenAR';
+import AgentsScreenAR from 'screens/AgentsScreenAR';
+//import AllAgentsScreenAR from 'screens/AllAgentsScreenAR';
 import NTableauScreen from 'screens/NTableauScreen';
 import DetailsAgent from 'screens/DetailsAgent';
+import DetailsAgentAR from 'screens/DetailsAgentAR';
 import DetailsNtableau from 'screens/DetailsNtableau';
 import StartScreen from 'screens/StartScreen';
+import StartScreenAR from 'screens/StartScreenAR';
 import IntroScreen from 'screens/IntroScreen';
 import LogoPulseScreen from 'screens/LogoPulseScreen';
+import Splash from 'screens/Splash';
 const Stack = createNativeStackNavigator();
 
 function HomeStackScreen() {
   return (
-    <Stack.Navigator initialRouteName="LogoPulse" >
-    <Stack.Screen name="LogoPulse" component={LogoPulseScreen} options={{
+    <Stack.Navigator initialRouteName="Intro" >
+    <Stack.Screen name="Intro" component={IntroScreen} options={{
           
           headerShown: false,
          
         }}/>
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Intro"
         component={IntroScreen}
         options={{
@@ -29,10 +37,19 @@ function HomeStackScreen() {
           headerShown: false,
           statusBarColor: '#0891b2',
         }}
-      />
+      /> */}
       <Stack.Screen
         name="Start"
         component={StartScreen}
+        options={{
+          animation: 'fade',
+          headerShown: false,
+          statusBarColor: '#0891b2',
+        }}
+      />
+      <Stack.Screen
+        name="StartAR"
+        component={StartScreenAR}
         options={{
           animation: 'fade',
           headerShown: false,
@@ -45,6 +62,22 @@ function HomeStackScreen() {
         options={{
           animation: 'fade',
           title: 'Pathologies',
+          headerTitleAlign : 'center',
+          headerShown: true,
+          statusBarColor: '#0891b2',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: '#0891b2',
+          },
+        }}
+      />
+       <Stack.Screen
+        name="HomeAR"
+        component={HomeScreenAR}
+        options={{
+          animation: 'fade',
+          title: 'الأمراض',
+          headerTitleAlign : 'center',
           headerShown: true,
           statusBarColor: '#0891b2',
           headerTintColor: 'white',
@@ -59,6 +92,22 @@ function HomeStackScreen() {
         options={{
           animation: 'fade',
           headerShown: true,
+          headerTitleAlign : 'center',
+          statusBarColor: '#0891b2',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: '#0891b2',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="AgentsAR"
+        component={AgentsScreenAR}
+        options={{
+          animation: 'fade',
+          headerShown: true,
+          headerTitleAlign : 'center',
+          title : 'مسببات الأمراض',
           statusBarColor: '#0891b2',
           headerTintColor: 'white',
           headerStyle: {
@@ -74,7 +123,25 @@ function HomeStackScreen() {
           headerShown: true,
           headerShadowVisible: false,
           statusBarColor: '#0891b2',
+          headerTitleAlign : 'center',
+
           title: 'Tous les Agents',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: '#0891b2',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="AllAgentsAR"
+        component={AllAgentsScreenAR}
+        options={{
+          animation: 'fade',
+          headerShown: true,
+          headerShadowVisible: false,
+          statusBarColor: '#0891b2',
+          headerTitleAlign : 'center',
+          title : 'مسببات الأمراض',
           headerTintColor: 'white',
           headerStyle: {
             backgroundColor: '#0891b2',
@@ -101,7 +168,23 @@ function HomeStackScreen() {
         component={DetailsAgent}
         options={{
           animation: 'fade',
+          headerTitleAlign : 'center',
           title: 'Details Agent',
+          headerShown: true,
+          statusBarColor: '#0891b2',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: '#0891b2',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="DetailsAgentAR"
+        component={DetailsAgentAR}
+        options={{
+          animation: 'fade',
+          headerTitleAlign : 'center',
+          title: 'تفاصيل مسبب المرض',
           headerShown: true,
           statusBarColor: '#0891b2',
           headerTintColor: 'white',
@@ -129,12 +212,21 @@ function HomeStackScreen() {
 }
 
 function App(): JSX.Element {
+  const [isLoading,setIsLoading]=React.useState<boolean>(true);
   return (
-    <NavigationContainer>
-      <NativeBaseProvider>
-        <HomeStackScreen />
-      </NativeBaseProvider>
-    </NavigationContainer>
+    isLoading?
+      <NavigationContainer>
+        <NativeBaseProvider>
+
+<Splash setIsLoading={setIsLoading}/>
+          {/* <HomeStackScreen /> */}
+        </NativeBaseProvider>
+      </NavigationContainer>:
+      <NavigationContainer>
+        <NativeBaseProvider>
+           <HomeStackScreen />
+        </NativeBaseProvider>
+      </NavigationContainer>
   );
 }
 

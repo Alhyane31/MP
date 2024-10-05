@@ -5,7 +5,9 @@ import React from 'react';
 import {ImageBackground} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const image = require('../assets/images/background.png');
+import { LanguageContext } from '../utils/LanguageContext';
+
+const image = require('../assets/images/background1.png');
 //const logo1 = require('../assets/images/Picture2.png');
 //const logo2 = require('../assets/images/Picture3.png');
 
@@ -24,29 +26,9 @@ const StartScreen = () => {
   };
 
   return (
+   
     <ImageBackground source={image} resizeMode="cover" style={{flex: 1}}>
-      <Image
-       // source={logo1}
-        alt="logo1"
-        style={{
-          position: 'absolute',
-          top: 20,
-          left: 20,
-          width: 100,
-          height: 50,
-        }}
-      />
-      <Image
-        //  source={logo2}
-      alt="logo2"
-        style={{
-          position: 'absolute',
-          top: 20,
-          right: 20,
-          width: 50,
-          height: 50,
-        }}
-      />
+  
       <Center flex={1}>
         <Button
           style={{width: 200}}
@@ -54,7 +36,7 @@ const StartScreen = () => {
           mt={5}
           ml={5}
           bg="primary.600">
-          Pathologies
+          Pathologies 
         </Button>
         <Button
           style={{width: 200}}
@@ -62,7 +44,7 @@ const StartScreen = () => {
           mt={5}
           ml={5}
           bg="primary.600">
-          Agents pathogènes
+          Agents pathogènes 
         </Button>
         <Button
           style={{width: 200}}
@@ -74,6 +56,7 @@ const StartScreen = () => {
         </Button>
       </Center>
     </ImageBackground>
+    
   );
 };
 

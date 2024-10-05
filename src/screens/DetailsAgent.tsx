@@ -1,22 +1,54 @@
 // @ts-nocheck
 import {Box, Text, HStack, Pressable, Actionsheet, FlatList} from 'native-base';
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {usePathologyStore} from 'store/pathologies';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {getPathologiesByAgent} from 'utils/data';
 import Pdf from 'react-native-pdf';
 import {ImageBackground} from 'react-native';
-
+import {openDatabase} from '../utils/database'; 
+import {useRoute} from '@react-navigation/native';
 const image = require('../assets/images/Picture6.png');
 
 const DetailsAgent = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const {agent} = usePathologyStore(state => state);
+  const route = useRoute();
+  const {agent} = route.params;
+  const [pathologies, setPathologies] = useState([]);
 
   const handleClose = () => {
     setSelectedFile(null);
   };
 
+  
+   // Fetch Agents from the database
+   useEffect(() => {
+    const fetchPathologies = async () => {
+      const db = await openDatabase();
+      db.transaction(tx => {
+        tx.executeSql(
+          'Select *  from path where id in(select IDPath FROM PathTab where NTAB = ? )',
+          [agent.NTAB],
+          (tx, results) => {
+            const pathologiesData = [];
+            for (let i = 0; i < results.rows.length; i++) {
+              pathologiesData.push(results.rows.item(i));
+            }// @ts-ignore
+            setPathologies(pathologiesData);
+            console.log(pathologiesData)
+            console.log("eee")
+          },
+          (tx, error) => {
+            console.error('Error fetching Agents:', error.message);
+          }
+        );
+      });
+    };
+
+    fetchPathologies();
+   // console.log(agents)
+  }, []);
+  const url =`https://raw.githubusercontent.com/Alhyane31/MP/0aa6ffcbdeda0c271077c410c41eb4e21b7d759f/FilesMP/FR/${selectedFile}.pdf`;
   if (!agent) {
     return <Text>Loading...</Text>;
   }
@@ -34,12 +66,12 @@ const DetailsAgent = () => {
           mb="15px">
           <Box w="80%">
             <Text isTruncated w="100%">
-              {agent.name}
+              {agent.LibelleFR}
             </Text>
-            <Text fontSize="xs">N.Tableau : {agent.n_table}</Text>
+            <Text fontSize="xs">N.Tableau : {agent.NTAB}</Text>
           </Box>
           <Box>
-            <Pressable onPress={() => setSelectedFile(agent.path)}>
+            <Pressable onPress={() => setSelectedFile(agent.NTAB.toString().replace(/\./g, '-'))}>
               <FontAwesome name="file-pdf-o" size={18} color="black" />
             </Pressable>
           </Box>
@@ -52,7 +84,7 @@ const DetailsAgent = () => {
             py: '5px',
             px: '1px',
           }}
-          data={getPathologiesByAgent(agent.name)}
+          data={pathologies}
           renderItem={({item}) => (
             <HStack
               shadow="1"
@@ -62,9 +94,9 @@ const DetailsAgent = () => {
               px={4}
               py={5}
               mb="15px">
-              <Box w="80%">
+              <Box w="100%">
                 <Text isTruncated w="100%">
-                  {item}
+                  {item.LibelleFR}
                 </Text>
               </Box>
             </HStack>
@@ -80,8 +112,8 @@ const DetailsAgent = () => {
               <Pdf
                 trustAllCerts={false}
                 source={{
-                  uri: `https://raw.githubusercontent.com/badris101/pathologies-app/a0d7f9b5879925efb66cf5992c74993d6e1f43fd/Files/${selectedFile}`,
-                }}
+                  uri: `https://raw.githubusercontent.com/Alhyane31/MP/0aa6ffcbdeda0c271077c410c41eb4e21b7d759f/FilesMP/FR/${selectedFile}.pdf`,
+                 }}
                 onLoadComplete={numberOfPages => {
                   console.log(`Number of pages: ${numberOfPages}`);
                 }}
@@ -89,7 +121,7 @@ const DetailsAgent = () => {
                   console.log(`Current page: ${page}`);
                 }}
                 onError={error => {
-                  console.log(error);
+                  console.log(url);
                 }}
                 onPressLink={uri => {
                   console.log(`Link pressed: ${uri}`);

@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 // @ts-nocheck
-import React, {useState} from 'react';
-import {Box, Text, Actionsheet, HStack, FlatList, Pressable} from 'native-base';
-import {usePathologyStore} from 'store/pathologies';
-import {getPathologyTypeAgents} from 'utils/data';
+import React, {useState, useEffect} from 'react';
+import {Box, Text, Actionsheet, HStack, FlatList, Pressable,Center} from 'native-base';
+import {useRoute} from '@react-navigation/native';
+import {openDatabase} from '../utils/database';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Pdf from 'react-native-pdf';
 import {ImageBackground} from 'react-native';
@@ -12,27 +12,58 @@ const image = require('../assets/images/background.png');
 
 const AgentsScreen = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const {selectedPathology, selectedPathologyType} = usePathologyStore(
-    state => state,
-  );
+  const [agents, setAgents] = useState([]); // Déclare l'état pour les agents
+  const route = useRoute();
+  const {pathology, pathologyType,PathologyLabelAR,PathologyLabelFR} = route.params;
 
+  console.log('Pathology:', pathology); // Vérifiez les valeurs des paramètres
+  console.log('Pathology Type:', pathologyType);
+
+  // Fonction pour fermer l'Actionsheet
   const handleClose = () => {
     setSelectedFile(null);
   };
 
+  // Fetch agents depuis la base de données
+  useEffect(() => {
+    const fetchAgents = async () => {
+      const db = await openDatabase();
+      db.transaction(tx => {
+        tx.executeSql(
+          'SELECT * FROM agents WHERE NTAB IN (SELECT PathTab.NTAB FROM PathTab WHERE IDPath = ?)',
+          [pathologyType],
+          (tx, results) => {
+            const agentsData = [];
+            for (let i = 0; i < results.rows.length; i++) {
+              agentsData.push(results.rows.item(i));
+            }
+            setAgents(agentsData);
+          },
+          (tx, error) => {
+            console.error('Error fetching agents:', error.message);
+          }
+        );
+      });
+    };
+
+    fetchAgents();
+  }, [pathologyType]); // Déclencher l'effet quand pathologyType change
+
   return (
     <ImageBackground source={image} resizeMode="cover" style={{flex: 1}}>
+       
       <Box flex={1}>
-        {selectedPathology && selectedPathologyType && (
+      <Center>
+        <Text fontSize="xl" fontWeight="bold" mt={4} mb={4}>
+        {PathologyLabelFR}       </Text>
+      </Center>
+        {pathology && pathologyType && (
           <FlatList
             _contentContainerStyle={{
               py: '15px',
               px: '15px',
             }}
-            data={getPathologyTypeAgents(
-              selectedPathology,
-              selectedPathologyType,
-            )}
+            data={agents}
             renderItem={({item}) => (
               <HStack
                 shadow="1"
@@ -43,19 +74,22 @@ const AgentsScreen = () => {
                 py={5}
                 mb="15px">
                 <Box w="80%">
-                  <Text isTruncated w="100%">
-                    {item.name}
+                  <Text isTruncated w="100%" flexWrap="wrap" // Gérer le retour à la ligne
+                   // Limiter le nombre de lignes avant de couper le texte
+                    isTruncated={false} > 
+                    {item.LibelleFR}
                   </Text>
-                  <Text fontSize="xs">N.Tableau : {item.n_table}</Text>
+                  <Text fontSize="xs" fontWeight="bold">N.Tableau : {item.NTAB}</Text>
                 </Box>
                 <Box>
-                  <Pressable onPress={() => setSelectedFile(item.path)}>
+                  <Pressable onPress={() => setSelectedFile(item.NTAB.toString().replace(/\./g, '-')) 
+                  }>
                     <FontAwesome name="file-pdf-o" size={18} color="black" />
                   </Pressable>
                 </Box>
               </HStack>
             )}
-            keyExtractor={item => item.name}
+            keyExtractor={item => item.NTAB.toString()}
           />
         )}
         <Actionsheet
@@ -67,7 +101,7 @@ const AgentsScreen = () => {
               <Pdf
                 trustAllCerts={false}
                 source={{
-                  uri: `https://raw.githubusercontent.com/badris101/pathologies-app/a0d7f9b5879925efb66cf5992c74993d6e1f43fd/Files/${selectedFile}`,
+                  uri: `https://raw.githubusercontent.com/Alhyane31/MP/0aa6ffcbdeda0c271077c410c41eb4e21b7d759f/FilesMP/FR/${selectedFile}.pdf`,
                 }}
                 onLoadComplete={numberOfPages => {
                   console.log(`Number of pages: ${numberOfPages}`);
@@ -76,7 +110,7 @@ const AgentsScreen = () => {
                   console.log(`Current page: ${page}`);
                 }}
                 onError={error => {
-                  console.log(error);
+                  console.error('Error loading PDF:', error);
                 }}
                 onPressLink={uri => {
                   console.log(`Link pressed: ${uri}`);

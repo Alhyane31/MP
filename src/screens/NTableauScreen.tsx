@@ -5,7 +5,7 @@
 /* <Text fontSize="xs" isTruncated w="100%">
                 //  {item.name}
                 </Text>*/
-import React, {useState} from 'react';
+                import React, {useState, useEffect} from 'react';
 import {Box, Text, HStack, FlatList, Pressable, Input} from 'native-base';
 import {getAllNtableau, searchAgents2} from 'utils/data';
 import FontAwesome from 'react-native-vector-icons/Feather';
