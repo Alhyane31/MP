@@ -98,10 +98,11 @@ const HomeScreen = () => {
       <Center flex={1}>
         <VStack bg="white" shadow={2} w="90%" space={5} px={5} py={5}>
           <Box>
-            <Text color="muted.400" fontSize="xs">
+            <Text bold color='#233b67' fontSize="lg">
               Pathologies
             </Text>
             <Select
+            fontSize="md"
               selectedValue={selectedPathology}
               onValueChange={itemValue => {
                 setSelectedPathology(itemValue);
@@ -120,10 +121,11 @@ const HomeScreen = () => {
             </Select>
           </Box>
           <Box>
-            <Text color="muted.400" fontSize="xs">
+            <Text bold color='#233b67' fontSize="lg">
               Type d'atteinte
             </Text>
             <Select
+            fontSize="md"
               selectedValue={selectedPathologyType}
               onValueChange={itemValue => setSelectedPathologyType(itemValue)}
               dropdownIcon={<ChevronDownIcon size={4} color="black" mr={3} />}
@@ -132,6 +134,7 @@ const HomeScreen = () => {
             >
               {pathologyTypes.map((pathologyType, idx) => (
                 <Select.Item
+                
                   key={idx}// @ts-ignore
                   label={pathologyType.LibelleFR} // Assurez-vous que cela correspond à votre structure
              // @ts-ignore
@@ -143,8 +146,11 @@ const HomeScreen = () => {
           <Button
             onPress={handleNavigation}
             isDisabled={!selectedPathologyType}
-          >
-            Afficher les agents
+
+            bg='#233b67'
+         >
+           <Text bold color="white" fontSize="lg">
+            Afficher les agents </Text>
           </Button>
         </VStack>
       </Center>

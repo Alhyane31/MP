@@ -60,7 +60,7 @@ const NTableau = () => {
   return (
     <ImageBackground source={image} resizeMode="cover" style={{flex: 1}}>
       <Box
-        bg="#0891b2"
+        bg="#233b67"
         alignItems="center"
         justifyContent="center"
         py={4}
@@ -97,7 +97,7 @@ const NTableau = () => {
               </Box>
               <Box w="80%">
                 
-                <Text  >رقم الجدول  : {item.NTAB}</Text>
+                <Text  fontSize="md" bold>رقم الجدول  : {item.NTAB}</Text>
               </Box>
               
             </HStack>

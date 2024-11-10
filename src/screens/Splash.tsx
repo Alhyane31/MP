@@ -9,7 +9,7 @@ interface SplashProps{
   
      }
 export default function Splash({setIsLoading}:SplashProps):JSX.Element{
-  const backgroundImg = require('../assets/images/background1.png');
+  const backgroundImg = require('../assets/images/background.png');
   return (
 
     <ImageBackground source={backgroundImg} style={{ flex: 1 }}>

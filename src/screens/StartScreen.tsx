@@ -27,35 +27,39 @@ const StartScreen = () => {
 
   return (
    
-    <ImageBackground source={image} resizeMode="cover" style={{flex: 1}}>
+   <ImageBackground source={image} resizeMode="cover" style={{flex: 1}}>
   
       <Center flex={1}>
         <Button
-          style={{width: 200}}
+         style={{width: 220, height: 50}} 
           onPress={handleNavigation1}
-          mt={5}
-          ml={5}
-          bg="primary.600">
+          mt={6}
+          ml={2}
+          bg="white"
+          _text={{color: '#233b67', fontSize: 18}} >
           Pathologies 
         </Button>
         <Button
-          style={{width: 200}}
+          style={{width: 220, height: 50}} 
           onPress={handleNavigation2}
-          mt={5}
-          ml={5}
-          bg="primary.600">
+          mt={6}
+          ml={2}
+          bg="white"
+          _text={{color: '#233b67', fontSize: 18}} >
           Agents pathogènes 
         </Button>
         <Button
-          style={{width: 200}}
+        
+          style={{width: 220, height: 50}} 
           onPress={handleNavigation3}
-          mt={5}
-          ml={5}
-          bg="primary.600">
+          mt={6}
+          ml={2}
+          bg="white"
+          _text={{color: '#233b67', fontSize: 18}} >
           N° de Tableau
         </Button>
       </Center>
-    </ImageBackground>
+  </ImageBackground>
     
   );
 };

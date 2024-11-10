@@ -65,10 +65,10 @@ const DetailsAgent = () => {
           py={5}
           mb="15px">
           <Box w="80%">
-            <Text isTruncated w="100%">
+            <Text fontSize="md" isTruncated w="100%">
               {agent.LibelleFR}
             </Text>
-            <Text fontSize="xs">N.Tableau : {agent.NTAB}</Text>
+            <Text bold fontSize="sm">N.Tableau : {agent.NTAB}</Text>
           </Box>
           <Box>
             <Pressable onPress={() => setSelectedFile(agent.NTAB.toString().replace(/\./g, '-'))}>
@@ -76,7 +76,7 @@ const DetailsAgent = () => {
             </Pressable>
           </Box>
         </HStack>
-        <Text fontSize="xs" mb={2}>
+        <Text color = "white" fontSize="md" mb={2}>
           Pathologies :
         </Text>
         <FlatList
@@ -95,7 +95,7 @@ const DetailsAgent = () => {
               py={5}
               mb="15px">
               <Box w="100%">
-                <Text isTruncated w="100%">
+                <Text fontSize="md" isTruncated w="100%">
                   {item.LibelleFR}
                 </Text>
               </Box>

@@ -71,16 +71,16 @@ const DetailsAgentAR = () => {
             </Pressable>
           </Box>
           <Box w="80%">
-                  <Text isTruncated w="100%" flexWrap="wrap" // Gérer le retour à la ligne
+                  <Text fontSize="md" isTruncated w="100%" flexWrap="wrap" // Gérer le retour à la ligne
                    // Limiter le nombre de lignes avant de couper le texte
                     isTruncated={false} > 
                     {agent.LibelleAR}
                   </Text>
-                  <Text fontSize="xs" fontWeight="bold">رقم الجدول : {agent.NTAB}</Text>
+                  <Text fontSize="sm" fontWeight="bold">رقم الجدول : {agent.NTAB}</Text>
                 </Box>
         </HStack>
-        <Text fontSize="xs" mb={2}>
-          Pathologies :
+        <Text color = "white" fontSize="md" mb={2}>
+        الأمراض :
         </Text>
         <FlatList
           _contentContainerStyle={{
@@ -98,7 +98,7 @@ const DetailsAgentAR = () => {
               py={5}
               mb="15px">
               <Box w="100%">
-                <Text  w="100%" flexWrap="wrap" isTruncated={false} > 
+                <Text fontSize="md" w="100%" flexWrap="wrap" isTruncated={false} > 
                   {item.LibelleAR}
             
                 </Text>

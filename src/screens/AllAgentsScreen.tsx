@@ -60,7 +60,7 @@ const AgentsScreen = () => {
   return (
     <ImageBackground source={image} resizeMode="cover" style={{flex: 1}}>
       <Box
-        bg="#0891b2"
+        bg="#233b67"
         alignItems="center"
         justifyContent="center"
         py={4}
@@ -91,10 +91,10 @@ const AgentsScreen = () => {
               py={5}
               mb="15px">
               <Box w="80%">
-                <Text isTruncated={false}  w="100%">
+                <Text fontSize="md" isTruncated={false}  w="100%">
                   {item.LibelleFR}
                 </Text>
-                <Text fontSize="xs">N.Tableau : {item.NTAB}</Text>
+                <Text bold fontSize="sm">N.Tableau : {item.NTAB}</Text>
               </Box>
               <Box>
                 <Pressable onPress={() => handleNavigation(item)}>

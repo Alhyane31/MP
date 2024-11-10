@@ -39,7 +39,7 @@ const NTableau = () => {
         mb="10px"
       >
         <Box w="80%">
-          <Text >N.Tableau : {item.NTAB}</Text>
+          <Text fontSize="md" bold>N.Tableau : {item.NTAB}</Text>
         </Box>
         <Box>
           <Pressable onPress={() => handleNavigation(item)}>
@@ -82,7 +82,7 @@ const NTableau = () => {
   return (
     <ImageBackground source={image} resizeMode="cover" style={{flex: 1}}>
       <Box
-        bg="#0891b2"
+        bg="#233b67"
         alignItems="center"
         justifyContent="center"
         py={4}
@@ -101,7 +101,8 @@ const NTableau = () => {
     px: '15px',
   }}
   data={searchTerm !== '' ? searchAgents(searchTerm) : agents.sort((a, b) => a.NTAB > b.NTAB ? 1 : -1)}
-  renderItem={({ item }) => <AgentItem item={item} handleNavigation={handleNavigation} />}
+  renderItem={({ item }) => 
+  <AgentItem  item={item} handleNavigation={handleNavigation} />}
   keyExtractor={(item, index) => index.toString()}
 />
       </Box>

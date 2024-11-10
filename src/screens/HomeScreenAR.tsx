@@ -102,11 +102,11 @@ const HomeScreenAR = () => {
       <Center flex={1}>
         <VStack bg="white" shadow={2} w="90%" space={5} px={5} py={5}>
           <Box>
-           <Text color="muted.400" fontSize="xs" textAlign= 'right' >
+           <Text bold color='#233b67' fontSize="lg" textAlign= 'right' >
             الأمراض
             </Text>
             <Select
-
+fontSize="md"
               selectedValue={selectedPathology}
               onValueChange={itemValue => {
                 setSelectedPathology(itemValue);
@@ -131,7 +131,7 @@ const HomeScreenAR = () => {
             </Select>
           </Box>
           <Box>
-          <Text color="muted.400"  textAlign= 'right' >
+          <Text bold color='#233b67' fontSize="lg"  textAlign= 'right' >
             نوع الإصابة
             </Text>
             <Select 
@@ -139,7 +139,7 @@ const HomeScreenAR = () => {
               onValueChange={itemValue => setSelectedPathologyType(itemValue)}
               dropdownIcon={<ChevronDownIcon size={4} color="black" mr={3} />}
               isDisabled={!selectedPathology}
-
+fontSize="md"
 
              
               placeholder="اختر نوع الإصابة" // Optional placeholder
@@ -161,9 +161,11 @@ const HomeScreenAR = () => {
           <Button
             onPress={handleNavigation}
             mt={5}
-            bg="primary.600"
+             bg='#233b67'
             isDisabled={Boolean(selectedPathologyType === '')}>
-           عرض مسببات الأمراض
+                <Text bold color="white" fontSize="lg">
+                عرض مسببات الأمراض</Text>
+     
           </Button>
         </VStack>
       </Center>

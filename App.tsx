@@ -23,13 +23,21 @@ import StartScreenAR from 'screens/StartScreenAR';
 import IntroScreen from 'screens/IntroScreen';
 import LogoPulseScreen from 'screens/LogoPulseScreen';
 import Splash from 'screens/Splash';
+import LangChoice from 'screens/LangChoice';
 const Stack = createNativeStackNavigator();
 
 function HomeStackScreen() {
   return (
     <Stack.Navigator initialRouteName="Intro" >
     <Stack.Screen name="Intro" component={IntroScreen} options={{
-          
+          statusBarColor: '#233b67',
+          headerShown: false,
+          animation: 'fade',
+         
+        }}/>
+         <Stack.Screen name="LangChoice" component={LangChoice} options={{
+          statusBarColor: '#233b67',
+          animation: 'fade',
           headerShown: false,
          
         }}/>
@@ -39,7 +47,7 @@ function HomeStackScreen() {
         options={{
           animation: 'fade',
           headerShown: false,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
         }}
       /> */}
       <Stack.Screen
@@ -48,7 +56,7 @@ function HomeStackScreen() {
         options={{
           animation: 'fade',
           headerShown: false,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
         }}
       />
       <Stack.Screen
@@ -57,7 +65,7 @@ function HomeStackScreen() {
         options={{
           animation: 'fade',
           headerShown: false,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
         }}
       />
       <Stack.Screen
@@ -68,10 +76,10 @@ function HomeStackScreen() {
           title: 'Pathologies',
           headerTitleAlign : 'center',
           headerShown: true,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }}
       />
@@ -83,10 +91,10 @@ function HomeStackScreen() {
           title: 'الأمراض',
           headerTitleAlign : 'center',
           headerShown: true,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }}
       />
@@ -97,10 +105,10 @@ function HomeStackScreen() {
           animation: 'fade',
           headerShown: true,
           headerTitleAlign : 'center',
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }}
       />
@@ -112,10 +120,10 @@ function HomeStackScreen() {
           headerShown: true,
           headerTitleAlign : 'center',
           title : 'مسببات الأمراض',
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }}
       />
@@ -126,13 +134,13 @@ function HomeStackScreen() {
           animation: 'fade',
           headerShown: true,
           headerShadowVisible: false,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTitleAlign : 'center',
 
           title: 'Tous les Agents',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }}
       />
@@ -143,12 +151,12 @@ function HomeStackScreen() {
           animation: 'fade',
           headerShown: true,
           headerShadowVisible: false,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTitleAlign : 'center',
           title : 'مسببات الأمراض',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }}
       />
@@ -159,12 +167,12 @@ function HomeStackScreen() {
           animation: 'fade',
           headerShown: true,
           headerShadowVisible: false,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTitleAlign : 'center',
           title: 'N° Tableau',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }} />
         <Stack.Screen
@@ -174,12 +182,12 @@ function HomeStackScreen() {
           animation: 'fade',
           headerShown: true,
           headerShadowVisible: false,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTitleAlign : 'center',
           title: 'رقم الجدول',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }}
       />
@@ -189,12 +197,12 @@ function HomeStackScreen() {
         options={{
           animation: 'fade',
           headerTitleAlign : 'center',
-          title: 'Details Agent',
+          title: 'Détails Agent',
           headerShown: true,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }}
       />
@@ -206,10 +214,10 @@ function HomeStackScreen() {
           headerTitleAlign : 'center',
           title: 'تفاصيل مسبب المرض',
           headerShown: true,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }}
       />
@@ -218,13 +226,13 @@ function HomeStackScreen() {
         component={DetailsNtableau}
         options={{
           animation: 'fade',
-          title: 'Details N° Tableau',
+          title: 'Détails N° Tableau',
           headerShown: true,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTitleAlign : 'center',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }}
       />
@@ -236,10 +244,10 @@ function HomeStackScreen() {
           title: 'تفاصيل رقم الجدول',
           headerTitleAlign : 'center',
           headerShown: true,
-          statusBarColor: '#0891b2',
+          statusBarColor: '#233b67',
           headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: '#0891b2',
+            backgroundColor: '#233b67',
           },
         }}
       />
@@ -255,7 +263,7 @@ function App(): JSX.Element {
       <NavigationContainer>
         <NativeBaseProvider>
 
-<Splash setIsLoading={setIsLoading}/>
+<Splash setIsLoading={setIsLoading} />
           {/* <HomeStackScreen /> */}
         </NativeBaseProvider>
       </NavigationContainer>:

@@ -100,13 +100,13 @@ const DetailsNtableau = () => {
             </Pressable>
           </Box>
           <Box w="80%">
-            <Text isTruncated w="100%">رقم الجدول   : {agent.NTAB}
+            <Text fontSize="md"  isTruncated w="100%">رقم الجدول   : {agent.NTAB}
             </Text>
             
           </Box>
           
         </HStack>
-        <Text style={{ fontWeight: 'bold' ,textAlign: 'center' }} mb={2}>
+        <Text color = "white" fontSize="lg" style={{ fontWeight: 'bold' ,textAlign: 'center' }} mb={2}>
     مسببات الأمراض :
         
         </Text>
@@ -125,9 +125,10 @@ const DetailsNtableau = () => {
               px={4}
               py={5}
               mb="15px">
-              <Box >
-                <Text isTruncated={false}  w="100%">
+              <Box w="100%" >
+                <Text fontSize="md"  isTruncated={false}  w="100%" textAlign="right">
                   {item.LibelleAR}
+
                 </Text>
               </Box>
             </HStack>
@@ -137,7 +138,7 @@ const DetailsNtableau = () => {
 
 
 
-        <Text style={{ fontWeight: 'bold' ,textAlign: 'center' }} mb={1}>
+        <Text color = "white" fontSize="lg" style={{ fontWeight: 'bold' ,textAlign: 'center' }} mb={1}>
   الأمراض :
         
         </Text>
@@ -156,8 +157,8 @@ const DetailsNtableau = () => {
               px={4}
               py={5}
               mb="15px">
-              <Box >
-                <Text isTruncated={false}  w="100%">
+              <Box w="100%" >
+                <Text  textAlign= "right" fontSize="md" isTruncated={false}  >
                   {item.LibelleAR}
                 </Text>
               </Box>

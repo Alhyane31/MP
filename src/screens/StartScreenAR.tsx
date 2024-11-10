@@ -51,27 +51,30 @@ const StartScreen = () => {
       /> */}
       <Center flex={1}>
         <Button
-          style={{width: 200}}
+          style={{width: 220, height: 50}} 
           onPress={handleNavigation1}
           mt={5}
           ml={5}
-          bg="primary.600">
+          bg="white"
+          _text={{color: '#233b67', fontSize: 18}} >
           الأمراض 
         </Button>
         <Button
-          style={{width: 200}}
+          style={{width: 220, height: 50}} 
           onPress={handleNavigation2}
           mt={5}
           ml={5}
-          bg="primary.600">
+          bg="white"
+          _text={{color: '#233b67', fontSize: 18}} >
           مسببات الأمراض
         </Button>
         <Button
-          style={{width: 200}}
+          style={{width: 220, height: 50}} 
           onPress={handleNavigation3}
           mt={5}
           ml={5}
-          bg="primary.600">
+          bg="white"
+          _text={{color: '#233b67', fontSize: 18}} >
           رقم الجدول
         </Button>
       </Center>

@@ -95,7 +95,7 @@ const DetailsNtableau = () => {
           py={5}
           mb="15px">
           <Box >
-            <Text isTruncated w="100%">
+            <Text fontSize="md"  isTruncated w="100%">
             N.Tableau : {agent.NTAB}
             </Text>
             
@@ -106,7 +106,7 @@ const DetailsNtableau = () => {
             </Pressable>
           </Box>
         </HStack>
-        <Text style={{ fontWeight: 'bold' ,textAlign: 'center' }} mb={2}>
+        <Text color = "white" fontSize="lg"  style={{ fontWeight: 'bold' ,textAlign: 'center' }} mb={2}>
           Agents pathogènes :
         </Text>
         <FlatList style= {{height: 200}}
@@ -125,7 +125,7 @@ const DetailsNtableau = () => {
               py={5}
               mb="15px">
               <Box >
-                <Text isTruncated={false}  w="100%">
+                <Text fontSize="md"  isTruncated={false}  w="100%">
                   {item.LibelleFR}
                 </Text>
               </Box>
@@ -136,7 +136,7 @@ const DetailsNtableau = () => {
 
 
 
-        <Text style={{ fontWeight: 'bold' ,textAlign: 'center' }} mb={1}>
+        <Text color = "white" fontSize="lg"  style={{ fontWeight: 'bold' ,textAlign: 'center' }} mb={1}>
           Pathologies :
         </Text>
         <FlatList
@@ -155,7 +155,7 @@ const DetailsNtableau = () => {
               py={5}
               mb="15px">
               <Box w="80%">
-                <Text isTruncated={false}  w="100%">
+                <Text fontSize="md"  isTruncated={false}  w="100%">
                   {item.LibelleFR}
                 </Text>
               </Box>

@@ -55,7 +55,7 @@ const AgentsScreen = () => {
        
       <Box flex={1}>
       <Center>
-        <Text w="90%"  fontSize="xl" fontWeight="bold" mt={4} mb={4}>
+        <Text w="90%"  fontSize="xl" color = "white" fontWeight="bold" mt={4} mb={4}>
         {PathologyLabelAR}       </Text>
       </Center>
         {pathology && pathologyType && (
@@ -81,12 +81,12 @@ const AgentsScreen = () => {
                   </Pressable>
                 </Box>
                 <Box w="80%">
-                  <Text isTruncated w="100%" flexWrap="wrap" // Gérer le retour à la ligne
+                  <Text fontSize="md" tyle={ {    textAlign: 'justify' }} isTruncated w="100%" flexWrap="wrap" // Gérer le retour à la ligne
                    // Limiter le nombre de lignes avant de couper le texte
                     isTruncated={false} > 
                     {item.LibelleAR}
                   </Text>
-                  <Text fontSize="xs" fontWeight="bold">رقم الجدول : {item.NTAB}</Text>
+                  <Text  fontWeight="bold">رقم الجدول : {item.NTAB}</Text>
                 </Box>
                
               </HStack>

@@ -60,7 +60,7 @@ const AgentsScreenAR = () => {
   return (
     <ImageBackground source={image} resizeMode="cover" style={{flex: 1}}>
       <Box
-        bg="#0891b2"
+        bg="#233b67"
         alignItems="center"
         justifyContent="center"
         py={4}
@@ -97,12 +97,12 @@ const AgentsScreenAR = () => {
                 </Pressable>
               </Box>
               <Box w="80%">
-                  <Text isTruncated w="100%" flexWrap="wrap" // Gérer le retour à la ligne
+                  <Text fontSize="md" isTruncated w="100%" flexWrap="wrap" // Gérer le retour à la ligne
                    // Limiter le nombre de lignes avant de couper le texte
                     isTruncated={false} > 
                     {item.LibelleAR}
                   </Text>
-                  <Text fontSize="xs" fontWeight="bold">رقم الجدول : {item.NTAB}</Text>
+                  <Text fontSize="sm" fontWeight="bold">رقم الجدول : {item.NTAB}</Text>
                 </Box>
             </HStack>
           )}

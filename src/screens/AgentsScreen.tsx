@@ -54,7 +54,7 @@ const AgentsScreen = () => {
        
       <Box flex={1}>
       <Center>
-        <Text w="90%" fontSize="xl" fontWeight="bold" mt={4} mb={4}>
+        <Text w="90%" fontSize="xl" color = "white"  fontWeight="bold" mt={4} mb={4}>
         {PathologyLabelFR}       </Text>
       </Center>
         {pathology && pathologyType && (
@@ -74,12 +74,12 @@ const AgentsScreen = () => {
                 py={5}
                 mb="15px">
                 <Box w="80%">
-                  <Text  w="100%" flexWrap="wrap" // Gérer le retour à la ligne
+                  <Text style={ {    textAlign: 'justify' }} fontSize="md" w="100%" flexWrap="wrap" // Gérer le retour à la ligne
                    // Limiter le nombre de lignes avant de couper le texte
                     isTruncated={false} > 
                     {item.LibelleFR}
                   </Text>
-                  <Text fontSize="xs" fontWeight="bold">N.Tableau : {item.NTAB}</Text>
+                  <Text  fontWeight="bold">N.Tableau : {item.NTAB}</Text>
                 </Box>
                 <Box>
                   <Pressable onPress={() => setSelectedFile(item.NTAB.toString().replace(/\./g, '-')) 
