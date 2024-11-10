@@ -8,7 +8,7 @@ import Pdf from 'react-native-pdf';
 import {ImageBackground} from 'react-native';
 import {openDatabase} from '../utils/database'; 
 import {useRoute} from '@react-navigation/native';
-const image = require('../assets/images/Picture6.png');
+const image = require('../assets/images/background.png');
 
 const DetailsAgentAR = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -67,7 +67,7 @@ const DetailsAgentAR = () => {
           
           <Box>
             <Pressable onPress={() => setSelectedFile(agent.NTAB.toString().replace(/\./g, '-'))}>
-              <FontAwesome name="file-pdf-o" size={18} color="black" />
+              <FontAwesome name="file-pdf-o" size={25} color="black" />
             </Pressable>
           </Box>
           <Box w="80%">

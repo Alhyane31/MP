@@ -8,7 +8,7 @@ import Pdf from 'react-native-pdf';
 import {ImageBackground} from 'react-native';
 import {openDatabase} from '../utils/database'; 
 import {useRoute} from '@react-navigation/native';
-const image = require('../assets/images/Picture6.png');
+const image = require('../assets/images/background.png');
 
 const DetailsAgent = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -21,7 +21,7 @@ const DetailsAgent = () => {
   };
 
   
-   // Fetch Agents from the database
+   // Fetch path from the database
    useEffect(() => {
     const fetchPathologies = async () => {
       const db = await openDatabase();
@@ -48,7 +48,7 @@ const DetailsAgent = () => {
     fetchPathologies();
    // console.log(agents)
   }, []);
-  const url =`https://raw.githubusercontent.com/Alhyane31/MP/0aa6ffcbdeda0c271077c410c41eb4e21b7d759f/FilesMP/FR/${selectedFile}.pdf`;
+  const url =`https://raw.githubusercontent.com/Alhyane31/MP/fcdf8a7e8c79e527dcbc2d0cbc688e2fc5ec11fd/FilesMP/FR/${selectedFile}.pdf`;
   if (!agent) {
     return <Text>Loading...</Text>;
   }
@@ -72,7 +72,7 @@ const DetailsAgent = () => {
           </Box>
           <Box>
             <Pressable onPress={() => setSelectedFile(agent.NTAB.toString().replace(/\./g, '-'))}>
-              <FontAwesome name="file-pdf-o" size={18} color="black" />
+              <FontAwesome name="file-pdf-o" size={25} color="black" />
             </Pressable>
           </Box>
         </HStack>
@@ -112,7 +112,7 @@ const DetailsAgent = () => {
               <Pdf
                 trustAllCerts={false}
                 source={{
-                  uri: `https://raw.githubusercontent.com/Alhyane31/MP/0aa6ffcbdeda0c271077c410c41eb4e21b7d759f/FilesMP/FR/${selectedFile}.pdf`,
+                  uri: `https://raw.githubusercontent.com/Alhyane31/MP/fcdf8a7e8c79e527dcbc2d0cbc688e2fc5ec11fd/FilesMP/FR/${selectedFile}.pdf`,
                  }}
                 onLoadComplete={numberOfPages => {
                   console.log(`Number of pages: ${numberOfPages}`);

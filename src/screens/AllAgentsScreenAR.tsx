@@ -69,7 +69,7 @@ const AgentsScreenAR = () => {
           bgColor="white"
           value={searchTerm}
           onChangeText={value => setSearchTerm(value)}
-          placeholder="Recherche"
+          placeholder="بحث"
         />
       </Box>
       <Box flex={1}>
@@ -80,7 +80,7 @@ const AgentsScreenAR = () => {
           }}
 
           
-          data={searchTerm !== '' ? searchAgents(searchTerm) : agents.sort((a, b) => a.LibelleAR> b.LibelleAR ? 1 : -1)}
+          data={searchTerm !== '' ? searchAgents(searchTerm) : agents.sort((a, b) => a.LibelleFR> b.LibelleFR ? 1 : -1)}
           renderItem={({item}) => (
             <HStack
               shadow="1"
@@ -93,7 +93,7 @@ const AgentsScreenAR = () => {
              
               <Box>
                 <Pressable onPress={() => handleNavigation(item)}>
-                  <FontAwesome name="info" size={20} color="black" />
+                  <FontAwesome name="info" size={28} color="black" />
                 </Pressable>
               </Box>
               <Box w="80%">

@@ -54,7 +54,7 @@ const AgentsScreen = () => {
        
       <Box flex={1}>
       <Center>
-        <Text fontSize="xl" fontWeight="bold" mt={4} mb={4}>
+        <Text w="90%" fontSize="xl" fontWeight="bold" mt={4} mb={4}>
         {PathologyLabelFR}       </Text>
       </Center>
         {pathology && pathologyType && (
@@ -74,7 +74,7 @@ const AgentsScreen = () => {
                 py={5}
                 mb="15px">
                 <Box w="80%">
-                  <Text isTruncated w="100%" flexWrap="wrap" // Gérer le retour à la ligne
+                  <Text  w="100%" flexWrap="wrap" // Gérer le retour à la ligne
                    // Limiter le nombre de lignes avant de couper le texte
                     isTruncated={false} > 
                     {item.LibelleFR}
@@ -84,7 +84,7 @@ const AgentsScreen = () => {
                 <Box>
                   <Pressable onPress={() => setSelectedFile(item.NTAB.toString().replace(/\./g, '-')) 
                   }>
-                    <FontAwesome name="file-pdf-o" size={18} color="black" />
+                    <FontAwesome name="file-pdf-o" size={25} color="black" />
                   </Pressable>
                 </Box>
               </HStack>
@@ -101,7 +101,7 @@ const AgentsScreen = () => {
               <Pdf
                 trustAllCerts={false}
                 source={{
-                  uri: `https://raw.githubusercontent.com/Alhyane31/MP/0aa6ffcbdeda0c271077c410c41eb4e21b7d759f/FilesMP/FR/${selectedFile}.pdf`,
+                  uri: `https://raw.githubusercontent.com/Alhyane31/MP/fcdf8a7e8c79e527dcbc2d0cbc688e2fc5ec11fd/FilesMP/FR/${selectedFile}.pdf`,
                 }}
                 onLoadComplete={numberOfPages => {
                   console.log(`Number of pages: ${numberOfPages}`);

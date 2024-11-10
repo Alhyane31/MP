@@ -79,12 +79,13 @@ const HomeScreenAR = () => {
       setPathologyTypes([]); // Reset when no pathology is selected
     }
   }, [selectedPathology]);
-  const selectedPathologyLabelAR = pathologies.find(
-    (pathology) => pathology.ID.toString() === selectedPathology
+  const selectedPathologyLabelAR = pathologyTypes.find(
+    (pathologyTypes) => pathologyTypes.ID.toString() === selectedPathologyType
   )?.LibelleAR;
-  const selectedPathologyLabelFR = pathologies.find(
-    (pathology) => pathology.ID.toString() === selectedPathology
+  const selectedPathologyLabelFR = pathologyTypes.find(
+    (pathologyTypes) => pathologyTypes.ID.toString() === selectedPathologyType
   )?.LibelleFR;
+
   
   const handleNavigation = () => {
     navigation.navigate('AgentsAR', {

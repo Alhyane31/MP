@@ -40,10 +40,7 @@ const IntroScreen = () => {
         await setupDatabase();
         console.log("Database setup ");
         
-        // Fetch data from the database
-        const data = await fetchPathTypes();
-        setPathTypes(data); // Set the fetched data to state
-        console.log("Fetched PathTypes:", data);
+        
       } catch (error) {
         console.error("Database setup or fetch failed:", error);
       }
@@ -72,9 +69,9 @@ const IntroScreen = () => {
               les maladies professionnelles extraits du Bulletin Officiel marocain N°
               160-14 du 19 Rabii I 1435 (21 janvier 2014)
             </Text>
-            <Text bold fontSize="md" style={styles.text}>
-              هذا التطبيق يقدم لك الأنظمة التنظيمية المتعلقة بأمراض العمل من مرسوم المغربي
-              الرسمي رقم 160-14 بتاريخ 19 ربيع الأول 1435 هـ (21 يناير 2014)
+            <Text bold fontSize="md" style={[styles.text, { textAlign: 'right' }]}>
+            هذا التطبيق يقدم لك الأنظمة التنظيمية المتعلقة بأمراض العمل من مرسوم المغربي 
+            الرسمي رقم 160-14 بتاريخ 19 ربيع الأول 1435 هـ (21 يناير 2014)
             </Text>
             <Button onPress={handleNavigation} mt={5} bg="primary.600">
               Accéder à l'application en français
@@ -89,11 +86,7 @@ const IntroScreen = () => {
             <Text bold fontSize="md" style={styles.text}>
               Path Types:
             </Text>
-            {pathTypes.map(item => (
-              <Text key={item.ID} style={styles.text}>
-                {item.LibelleFR} / {item.LibelleAR}
-              </Text>
-            ))}
+            
           </Animated.View>
         )}
       </Center>

@@ -91,14 +91,14 @@ const AgentsScreen = () => {
               py={5}
               mb="15px">
               <Box w="80%">
-                <Text isTruncated w="100%">
+                <Text isTruncated={false}  w="100%">
                   {item.LibelleFR}
                 </Text>
                 <Text fontSize="xs">N.Tableau : {item.NTAB}</Text>
               </Box>
               <Box>
                 <Pressable onPress={() => handleNavigation(item)}>
-                  <FontAwesome name="info" size={20} color="black" />
+                  <FontAwesome name="info" size={28} color="black" />
                 </Pressable>
               </Box>
             </HStack>

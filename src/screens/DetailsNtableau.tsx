@@ -1,21 +1,83 @@
 // @ts-nocheck
 import {Box, Text, HStack, Pressable, Actionsheet, FlatList} from 'native-base';
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {usePathologyStore} from 'store/pathologies';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {getPathologiesByAgent,getAgentsByNtable} from 'utils/data';
+import {getPathologiesByAgent} from 'utils/data';
 import Pdf from 'react-native-pdf';
 import {ImageBackground} from 'react-native';
+import {openDatabase} from '../utils/database'; 
+import {useRoute} from '@react-navigation/native';
 
 const image = require('../assets/images/background.png');
 
 const DetailsNtableau = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const {agent} = usePathologyStore(state => state);
-
+  const route = useRoute();
+  const {agent} = route.params;
+  const [pathologies, setPathologies] = useState([]);
+  const [agents, setAgents] = useState([]);
   const handleClose = () => {
     setSelectedFile(null);
   };
+  useEffect(() => {
+    const fetchPathologies = async () => {
+      const db = await openDatabase();
+      db.transaction(tx => {
+        tx.executeSql(
+          'Select *  from path where id in(select IDPath FROM PathTab where NTAB = ? )',
+          [agent.NTAB],
+          (tx, results) => {
+            const pathologiesData = [];
+            for (let i = 0; i < results.rows.length; i++) {
+              pathologiesData.push(results.rows.item(i));
+            }// @ts-ignore
+            setPathologies(pathologiesData);
+            console.log(pathologiesData)
+            console.log("eee")
+          },
+          (tx, error) => {
+            console.error('Error fetching Paths:', error.message);
+          }
+        );
+      });
+    };
+
+    fetchPathologies();
+   // console.log(agents)
+  }, []);
+
+
+  useEffect(() => {
+    const fetchAgents = async () => {
+      const db = await openDatabase();
+      db.transaction(tx => {
+        tx.executeSql(
+          'select * FROM Agents where NTAB = ? ',
+          [agent.NTAB],
+          (tx, results) => {
+            const agentsData = [];
+            for (let i = 0; i < results.rows.length; i++) {
+              agentsData.push(results.rows.item(i));
+            }// @ts-ignore
+            setAgents(agentsData);
+            console.log(agentsData)
+            console.log("eee")
+          },
+          (tx, error) => {
+            console.error('Error fetching Agents:', error.message);
+          }
+        );
+      });
+    };
+
+    fetchAgents();
+   // console.log(agents)
+  }, []);
+
+
+  const url =`https://raw.githubusercontent.com/Alhyane31/MP/fcdf8a7e8c79e527dcbc2d0cbc688e2fc5ec11fd/FilesMP/FR/${selectedFile}.pdf`;
+ console.log(url)
 
   if (!agent) {
     return <Text>Loading...</Text>;
@@ -32,27 +94,27 @@ const DetailsNtableau = () => {
           px={4}
           py={5}
           mb="15px">
-          <Box w="80%">
+          <Box >
             <Text isTruncated w="100%">
-            N.Tableau : {agent.n_table}
+            N.Tableau : {agent.NTAB}
             </Text>
             
           </Box>
           <Box>
-            <Pressable onPress={() => setSelectedFile(agent.path)}>
-              <FontAwesome name="file-pdf-o" size={18} color="black" />
+            <Pressable onPress={() => setSelectedFile(agent.NTAB.toString().replace(/\./g, '-'))}>
+              <FontAwesome name="file-pdf-o" size={25} color="black" />
             </Pressable>
           </Box>
         </HStack>
         <Text style={{ fontWeight: 'bold' ,textAlign: 'center' }} mb={2}>
           Agents pathogènes :
         </Text>
-        <FlatList style= {{height: 50,}}
+        <FlatList style= {{height: 200}}
           _contentContainerStyle={{
             py: '5px',
             px: '1px',
           }}
-          data={getAgentsByNtable(agent.n_table)}
+          data={agents}
           renderItem={({item}) => (
             <HStack
               shadow="1"
@@ -62,14 +124,14 @@ const DetailsNtableau = () => {
               px={4}
               py={5}
               mb="15px">
-              <Box w="80%">
-                <Text isTruncated w="100%">
-                  {item}
+              <Box >
+                <Text isTruncated={false}  w="100%">
+                  {item.LibelleFR}
                 </Text>
               </Box>
             </HStack>
           )}
-          keyExtractor={item => item}
+          keyExtractor={item => item.LibelleFR}
         />
 
 
@@ -82,7 +144,7 @@ const DetailsNtableau = () => {
             py: '1px',
             px: '1px',
           }}
-          data={getPathologiesByAgent(agent.name)}
+          data={pathologies}
           renderItem={({item}) => (
             <HStack
               shadow="1"
@@ -93,13 +155,13 @@ const DetailsNtableau = () => {
               py={5}
               mb="15px">
               <Box w="80%">
-                <Text isTruncated w="100%">
-                  {item}
+                <Text isTruncated={false}  w="100%">
+                  {item.LibelleFR}
                 </Text>
               </Box>
             </HStack>
           )}
-          keyExtractor={item => item}
+          keyExtractor={item => item.LibelleFR}
         />
         <Actionsheet
           animationPreset="fade"
@@ -110,7 +172,7 @@ const DetailsNtableau = () => {
               <Pdf
                 trustAllCerts={false}
                 source={{
-                  uri: `https://raw.githubusercontent.com/badris101/pathologies-app/a0d7f9b5879925efb66cf5992c74993d6e1f43fd/Files/${selectedFile}`,
+                  uri: url,
                 }}
                 onLoadComplete={numberOfPages => {
                   console.log(`Number of pages: ${numberOfPages}`);

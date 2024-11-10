@@ -76,11 +76,11 @@ const HomeScreen = () => {
   }, [selectedPathology]);
 
 
-  const selectedPathologyLabelAR = pathologies.find(
-    (pathology) => pathology.ID.toString() === selectedPathology
+  const selectedPathologyLabelAR = pathologyTypes.find(
+    (pathologyTypes) => pathologyTypes.ID.toString() === selectedPathologyType
   )?.LibelleAR;
-  const selectedPathologyLabelFR = pathologies.find(
-    (pathology) => pathology.ID.toString() === selectedPathology
+  const selectedPathologyLabelFR = pathologyTypes.find(
+    (pathologyTypes) => pathologyTypes.ID.toString() === selectedPathologyType
   )?.LibelleFR;
 
   

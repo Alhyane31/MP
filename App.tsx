@@ -3,17 +3,21 @@ import { Text, View } from 'native-base';
 import {NativeBaseProvider} from 'native-base';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from 'screens/HomeScreen';
 import HomeScreenAR from 'screens/HomeScreenAR';
+import HomeScreen from 'screens/HomeScreen';
+
 import AgentsScreen from 'screens/AgentsScreen';
 import AllAgentsScreen from 'screens/AllAgentsScreen';
 import AllAgentsScreenAR from 'screens/AllAgentsScreenAR';
 import AgentsScreenAR from 'screens/AgentsScreenAR';
 //import AllAgentsScreenAR from 'screens/AllAgentsScreenAR';
 import NTableauScreen from 'screens/NTableauScreen';
+
+import NTableauScreenAR from 'screens/NTableauScreenAR';
 import DetailsAgent from 'screens/DetailsAgent';
 import DetailsAgentAR from 'screens/DetailsAgentAR';
 import DetailsNtableau from 'screens/DetailsNtableau';
+import DetailsNtableauAR from 'screens/DetailsNtableauAR';
 import StartScreen from 'screens/StartScreen';
 import StartScreenAR from 'screens/StartScreenAR';
 import IntroScreen from 'screens/IntroScreen';
@@ -156,7 +160,23 @@ function HomeStackScreen() {
           headerShown: true,
           headerShadowVisible: false,
           statusBarColor: '#0891b2',
+          headerTitleAlign : 'center',
           title: 'N° Tableau',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: '#0891b2',
+          },
+        }} />
+        <Stack.Screen
+        name="NTableauAR"
+        component={NTableauScreenAR}
+        options={{
+          animation: 'fade',
+          headerShown: true,
+          headerShadowVisible: false,
+          statusBarColor: '#0891b2',
+          headerTitleAlign : 'center',
+          title: 'رقم الجدول',
           headerTintColor: 'white',
           headerStyle: {
             backgroundColor: '#0891b2',
@@ -201,6 +221,22 @@ function HomeStackScreen() {
           title: 'Details N° Tableau',
           headerShown: true,
           statusBarColor: '#0891b2',
+          headerTitleAlign : 'center',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: '#0891b2',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="DetailsNtableauAR"
+        component={DetailsNtableauAR}
+        options={{
+          animation: 'fade',
+          title: 'تفاصيل رقم الجدول',
+          headerTitleAlign : 'center',
+          headerShown: true,
+          statusBarColor: '#0891b2',
           headerTintColor: 'white',
           headerStyle: {
             backgroundColor: '#0891b2',
@@ -208,6 +244,7 @@ function HomeStackScreen() {
         }}
       />
     </Stack.Navigator>
+    
   );
 }
 

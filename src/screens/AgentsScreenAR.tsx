@@ -55,7 +55,7 @@ const AgentsScreen = () => {
        
       <Box flex={1}>
       <Center>
-        <Text fontSize="xl" fontWeight="bold" mt={4} mb={4}>
+        <Text w="90%"  fontSize="xl" fontWeight="bold" mt={4} mb={4}>
         {PathologyLabelAR}       </Text>
       </Center>
         {pathology && pathologyType && (
@@ -77,7 +77,7 @@ const AgentsScreen = () => {
                  <Box>
                   <Pressable onPress={() => setSelectedFile(item.NTAB.toString().replace(/\./g, '-')) 
                   }>
-                    <FontAwesome name="file-pdf-o" size={18} color="black" />
+                    <FontAwesome name="file-pdf-o" size={25} color="black" />
                   </Pressable>
                 </Box>
                 <Box w="80%">
