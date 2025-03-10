@@ -15,17 +15,19 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
+  console.log("1");
+ const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
-
+  console.log("2");
   useEffect(() => {
-    if (loaded) {
+    if (loaded) {console.log("3");
       SplashScreen.hideAsync();
     }
   }, [loaded]);
 
   if (!loaded) {
+    console.log("4");
     return null;
   }
 
