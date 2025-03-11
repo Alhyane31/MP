@@ -1,37 +1,23 @@
-
 import { useRouter } from 'expo-router';
 import React, { useState, useEffect } from 'react';
-import {Button, Text } from 'react-native';
-import { Animated, ImageBackground, StyleSheet } from 'react-native';
-//import { setupDatabase, fetchPathTypes } from "@assets/utils/database"; // Ensure named imports
+import { TouchableOpacity, View, Text, Animated, ImageBackground, StyleSheet } from 'react-native';
 
 const backgroundImg = require('../assets/images/background1.png');
 
 const LangChoice = () => {
-
   const [textVisible, setTextVisible] = useState(true);
   const [fadeAnim] = useState(new Animated.Value(0));
-  const [pathTypes, setPathTypes] = useState([]); // State to hold fetched data
-
-
-
   const router = useRouter();
-  // Gérer la navigation lorsque l'écran est touché
-  const handleScreenTouch = () => {
-    router.push("/construction");
-//router.push("/explore");
-  };
-  // Handle navigation to the French screen
+
   const handleNavigation = () => {
-    router.push("/construction");
+    router.push("/StartScreen");
   };
 
-  // Handle navigation to the Arabic screen
   const handleArabicNavigation = () => {
     router.push("/construction");
   };
 
-  // Animate text appearance
+  // Animation du texte
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
@@ -42,46 +28,27 @@ const LangChoice = () => {
     });
   }, [fadeAnim]);
 
- 
-
   return (
     <ImageBackground source={backgroundImg} style={styles.background}>
-      <Center flex={1} backgroundColor="transparent">
+      <View style={styles.container}>
         {textVisible && (
-          <Animated.View
-            style={[
-              
-              {
-                opacity: fadeAnim,
-                transform: [
-                  { translateY: fadeAnim.interpolate({ inputRange: [0, 1], outputRange: [20, 0] }) },
-                ],
-              },
-            ]}
-          >
-            <Text bold  fontSize="lg" style={[styles.text, {color: 'white', textAlign: 'center'}]}>
-              Choisissez la langue / اختر اللغة
-            </Text>
-            <Button  onPress={handleNavigation} mt={5} bg="rgba(29,48,76,1)" borderRadius={80}>
-            <Text fontSize="lg" bold color="white">
-              Français
+          <Animated.View style={[styles.animatedView, { opacity: fadeAnim }]}>
+            <Text style={styles.text}>Choisissez la langue / اختر اللغة</Text>
 
-              </Text>
-            </Button>
-            <Button onPress={handleArabicNavigation} mt={5} bg="rgba(29,48,76,1)" borderRadius={80}>
-            <Text fontSize="lg" bold color="white">
-    العربية
-  </Text>
-            </Button>
+            {/* Conteneur des boutons */}
+            <View style={styles.buttonWrapper}>
+              <TouchableOpacity style={styles.button} onPress={handleNavigation}>
+                <Text style={styles.buttonText}>FRANÇAIS</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={handleArabicNavigation}>
+                <Text style={styles.buttonText}>العربية</Text>
+              </TouchableOpacity>
+            </View>
           </Animated.View>
         )}
-       
-        <Text bold color = "white" style={styles.copyrightText}>
-          © 2024 Tous droits réservés.
-        </Text>
-      
-      </Center>
-      
+
+        <Text style={styles.copyrightText}>© 2025 Tous droits réservés.</Text>
+      </View>
     </ImageBackground>
   );
 };
@@ -90,22 +57,47 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
   },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+  },
   animatedView: {
-    width: '70%',
-    marginBottom: 30,
-    marginTop: 150,
+    alignItems: 'center',
+    width: '80%',
   },
   text: {
-    textAlign: 'justify',
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  buttonWrapper: {
+    width: '100%', 
+    gap: 15, 
+  },
+  button: {
+    width: '100%',
+    paddingVertical: 12,
+    backgroundColor: '#1D304C',
+    borderRadius: 80,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+    textTransform: 'uppercase',
   },
   copyrightText: {
     position: 'absolute',
-    bottom: 0, // Met le texte en bas de l'écran
+    bottom: 20,
     textAlign: 'center',
     width: '100%',
- //   color: 'white', // Changez la couleur si nécessaire
+    color: 'white',
     fontSize: 12,
-    paddingBottom: 10, // Ajouter un peu d'espace entre le texte et le bord
   },
 });
 

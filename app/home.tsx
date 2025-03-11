@@ -11,8 +11,8 @@ const home = () => {
   const router = useRouter();
   // Gérer la navigation lorsque l'écran est touché
   const handleScreenTouch = () => {
-    router.push("/construction");
-//router.push("/explore");
+   // router.push("/construction");
+router.push("/LangChoice");
   };
 
 

@@ -35,12 +35,20 @@ export default function RootLayout() {
     
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <SQLiteProvider databaseName="MP.db" onInit={migrateDbIfNeeded}>
-      <Stack>
+      <Stack  screenOptions={{
+          headerStyle: { backgroundColor: '#1D304C' },
+          headerTintColor: '#fff', // Couleur du texte de l'en-tête
+          headerTitleAlign: 'center', // Centre le texte de l'en-tête
+      
+        }}>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="Splash" options={{ headerShown: false }} />
         <Stack.Screen name="construction" options={{ headerShown: false }} />
         <Stack.Screen name="home" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="LangChoice" options={{ headerShown: false }} />
+        <Stack.Screen name="StartScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="HomeScreen" options={{ title : "Pathologies"}} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </SQLiteProvider>

@@ -12,7 +12,7 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
 
   // Première migration
   if (currentDbVersion === 0) {
-    await db.execAsync(`
+  try{  await db.execAsync(`
       PRAGMA journal_mode = 'wal';
       CREATE TABLE IF NOT EXISTS PathType (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,107 +26,25 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
         PathTypeID INTEGER NOT NULL,
         FOREIGN KEY(PathTypeID) REFERENCES PathType(ID)
       );
-    `);
-    currentDbVersion = 1;
-  }
-  console.log("Migration exécutée")
-  // Mettre à jour la version de la DB
-  await db.execAsync(`PRAGMA user_version = ${DATABASE_VERSION}`);
-}
-
-/*
-  try {
-    await db.execAsync(
-      'CREATE TABLE IF NOT EXISTS PathType (ID INTEGER NOT NULL UNIQUE, LibelleFR TEXT NOT NULL, LibelleAR TEXT NOT NULL, PRIMARY KEY(ID));',
-      []
-    );
-    console.log('PathType table created.');
-  } catch (error) {
-    console.error('Error creating PathType:', error.message);
-  }
-
-
-    console.log("Bubu3");
-
-    tx.executeSql(
-      `CREATE TABLE IF NOT EXISTS Path (
-        "ID" INTEGER NOT NULL UNIQUE,
-        "LibelleFR" TEXT NOT NULL,
-        "LibelleAR" TEXT NOT NULL,
-        "PathTypeID" INTEGER NOT NULL,
-        FOREIGN KEY("PathTypeID") REFERENCES "PathType"("ID"),
-        PRIMARY KEY("ID"));`,  // Fix the closing parenthesis here
-      [],
-      () => {
-        console.log("Path table created.");
-      },
-      (tx, error) => {
-        console.error("Error creating Path:", error.message);
-      }
-    );
-
-    tx.executeSql(
-      `CREATE TABLE IF NOT EXISTS PathTab (
+      CREATE TABLE IF NOT EXISTS PathTab (
         "IDPath" INTEGER NOT NULL,
         "NTAB" TEXT NOT NULL,
         FOREIGN KEY("IDPath") REFERENCES "Path",
         PRIMARY KEY("IDPath", "NTAB")
-      );`,
-      [],
-      () => {
-        console.log("PathTab table created.");
-      },
-      (tx, error) => {
-        console.error("Error creating PathTab:", error.message);
-      }
-    );
-
-    tx.executeSql(
-      `CREATE TABLE IF NOT EXISTS Agents (
+      );
+      CREATE TABLE IF NOT EXISTS Agents (
         "ID" INTEGER NOT NULL UNIQUE,
         "LibelleFR" TEXT NOT NULL,
         "LibelleAR" TEXT NOT NULL,
         "NTAB" TEXT,
         PRIMARY KEY("ID")
-      );`,
-      [],
-      () => {
-        console.log("Agents table created.");
-      },
-      (tx, error) => {
-        console.error("Error creating Agents:", error.message);
-      }
-    );
-
-    console.log("Bubu5");
-
-    // Retrieve and log all table names
-    tx.executeSql(
-      "SELECT name FROM sqlite_master WHERE type='table';",
-      [],
-      (tx, results) => {
-        for (let i = 0; i < results.rows.length; i++) {
-          console.log("Table Name:", results.rows.item(i).name);
-        }
-      },
-      (tx, error) => {
-        console.error("Error fetching table names:", error.message);
-      }
-    );
-
-
-    console.log("dudu")})
-    db.transaction(tx => {
-    // Check if PathType table is empty
-     tx.executeSql(
-    'SELECT COUNT(*) AS count FROM PathType',
-    [],
-    (tx, results) => { console.log("A")
-      if (results.rows.item(0).count === 0) {
-       
-        // If empty, insert default values
-        tx.executeSql(
-          `INSERT INTO PathType (LibelleFR, ID, LibelleAR) VALUES
+      );
+    `); console.log('Tables created with no errors');} catch (error:any) {
+      console.error('Error creating Tables:', error.message);
+    }
+     
+      try{  await db.execAsync(`
+        INSERT INTO PathType (LibelleFR, ID, LibelleAR) VALUES
 ('Pathologies broncho-pulmonaires, pleurales', 1, 'أمراض الجهاز التنفسي والجنبي'),
 ('Pathologies ophtalmologiques, ORL et stomatologiques', 2, 'أمراض العيون والأنف والأذن والحنجرة والأسنان'),
 ('Cancers', 3, 'السرطانات'),
@@ -141,30 +59,12 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
 ('Pathologies ostéoarticulaires', 12, 'أمراض العظام والمفاصل'),
 ('Pathologies auto-immunes', 13, 'الأمراض المناعية الذاتية'),
 ('Pathologies diverses', 14, 'أمراض متنوعة'),
-('Pathologies endocriniennes', 15, 'أمراض الغدد الصماء');`,
-          [],
-          () => {
-            console.log("Default values inserted into PathType.");
-          },
-          (tx, error) => {
-            console.error("Error inserting values into PathType:", error.message);
-          }
-        );
+('Pathologies endocriniennes', 15, 'أمراض الغدد الصماء');
+      `); console.log('PathsTypes created with no errors');} catch (error:any) {
+        console.error('Error creating PathsTypes:', error.message);
       }
-    },
-    (tx, error) => {
-      console.error("Error checking PathType count:", error.message);
-    }
-  );
-
-
-    console.log("Bubu7");})
-    db.transaction(tx => {
-      // Vérification et insertion dans Path
-      tx.executeSql('SELECT COUNT(*) AS count FROM Path', [], (tx, results) => {
-        console.log("B")
-        if (results.rows.item(0).count === 0) {console.log('DUDU1');
-          tx.executeSql(`INSERT INTO Path (LibelleFR,ID,PathTypeID,LibelleAR) VALUES
+       
+        try{  await db.execAsync(`INSERT INTO Path (LibelleFR,ID,PathTypeID,LibelleAR) VALUES
           ('Accès confusionnels',1,9,'نوبات اختبال'),
           ('Accidents aigus',2,9,'الحوادث الحادة'),
           ('Accidents nerveux aigus',3,9,'حوادث عصبية حادة'),
@@ -593,15 +493,11 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
           ('Vertiges',426,2,'دوار'),
           ('Vomissements (intoxication aigue)',427,10,'تقيؤ (التسمم الحاد)'),
           ('Zona et ses manifestations cutanées, auriculaire, ophtalmique, méningée, neurologique périphérique; algies post zostériennes (Complications dues à l''infection chronique par le virus de la varicelle)',428,5,'الحلأ النطاقي و مظاهره الجلدية, الأذنية , العينية, التهاب السحايا, و الجهاز العصبي الطرفي, آلام ما بعد الحلأ النطاقي للشخص الذي كان يعاني سابقا من جدري الماء')
-          `);
-        }
-      });})
+          
+        `); console.log('Paths created with no errors');} catch (error:any) {
+          console.error('Error creating Paths:', error.message);}
 
- // Vérification et insertion dans Agents
- db.transaction(tx => {  tx.executeSql('SELECT COUNT(*) AS count FROM Agents', [], (tx, results) => {
-  console.log('DUDU');
-  if (results.rows.item(0).count === 0) {
-    tx.executeSql(`INSERT INTO Agents (LibelleFR,ID,NTAB,LibelleAR) VALUES
+          try{  await db.execAsync(`INSERT INTO Agents (LibelleFR,ID,NTAB,LibelleAR) VALUES
     ('Plomb et ses composés',1,'1.1.1','الرصاص و مركباته'),
     ('Fluor, Acide fluorhydrique et ses sels minéraux',2,'1.1.10','الفليور و حمض الفليوريدريك و أملاحه المعدنية'),
     ('Ciments (Alumino-silicates de calcium)',3,'1.1.11','الاسمنت (ألمنيو-سيلسكاتات الكلسيوم)'),
@@ -810,21 +706,11 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
     ('Glutaraldéhyde',206,'1.8.1','الغلوترالدهيد'),
     ('Macrolides (notamment spiromycine et oléandomycine), de médicaments et de leurs précurseurs, notamment: glycols, salbutamol, pipérazine, cimétidine, hydralazine, hydralazine de l''acide nicotinique (isoniazide), chlorure d''acide de la phényl glycine, tétracylines, alpha-méthyl-dopa',207,'1.8.1','الماكفوليات خاصة سبيروميسين و الاوليندوميسين, الأدوية و السلائف, خاصة: الغليكول و السالبوتامول, بيبيرازين, السيميتيدين, الهيدرالازين, هيدرالازين حامض النيكوتينيك (إيزونيازيد ), حامض كلوريد فنيل الغليسين, التتراسكلين, ألفا كيثيل دوبا'),
     ('Travaux effectuées dans des milieux où la pression est supérieure à la pression atmosphérique',208,'2.12','الأعمال المنجزة في وسط يكون فيه الضغط أقل من الضغط الجوي و خاضع للتغييرات'),
-    ('Poussières végétales: Préparation et manipulation du café vert, du thé, du soja, du tabac, du houblon, de l''orge',209,'1.8.1 bis','أغبرة النباتات: إعداد و مناولة البن الأخضر و الشاي و فول الصوجا و التبغ و الجنجل و الشعير')`,[],
-    (tx, error) => {
-      console.error("Error inserting values into PathType:", error
-      );
-    });
-  }
-} );
-});
+    ('Poussières végétales: Préparation et manipulation du café vert, du thé, du soja, du tabac, du houblon, de l''orge',209,'1.8.1 bis','أغبرة النباتات: إعداد و مناولة البن الأخضر و الشاي و فول الصوجا و التبغ و الجنجل و الشعير')
+          `); console.log('Agents created with no errors');} catch (error:any) {
+            console.error('Agents creating Paths:', error.message);}
 
-       // Vérification et insertion dans PathTab
-       db.transaction(tx => {
-       tx.executeSql('SELECT COUNT(*) AS count FROM PathTab', [], (tx, results) => {
-        console.log('PHUDU');
-        if (results.rows.item(0).count === 0) {
-          tx.executeSql(`INSERT INTO PathTab (NTAB,IDPath) VALUES('1.1.1',259),
+            try{  await db.execAsync(`INSERT INTO PathTab (NTAB,IDPath) VALUES('1.1.1',259),
           ('1.1.1',260),
           ('1.1.1',125),
           ('1.1.1',13),
@@ -1359,38 +1245,17 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
           ('3.18',243),
           ('3.19',356),
           ('1.2.15',23)
-          `
-          ,[],(tx, error) => {
-            console.error("Error inserting values into PathType:", error);
-          });
+            `); console.log('PathsTAB created with no errors');} catch (error:any) {
+              console.error('Error creating PathsTAB:', error.message);
+            }
 
-          
-        }
-      });})
-      
-  return "Database setup complete";};
 
-// Appelle la fonction setupDatabase pour initialiser
-// Fetch data function
-export const fetchPathTypes = async () => {
-  const db = await openDatabase();
-  return new Promise((resolve, reject) => {
-    db.transaction(tx => {
-      tx.executeSql(
-        'SELECT * FROM PathType',
-        [],
-        (tx, results) => {
-          const items = [];
-          for (let i = 0; i < results.rows.length; i++) {
-            items.push(results.rows.item(i));
-          }
-          resolve(items);
-        },
-        (tx, error) => {
-          reject(error);
-        }
-      );
-    });
-  });
-};
-export  { openDatabase };*/
+
+
+    
+    currentDbVersion = 1;
+  }
+  console.log("Migration exécutée")
+  // Mettre à jour la version de la DB
+  await db.execAsync(`PRAGMA user_version = ${DATABASE_VERSION}`);
+}
