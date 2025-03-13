@@ -67,22 +67,22 @@ const HomeScreen = () => {
       
       <View style={styles.container}>
         <View style={styles.card}>
-          <Text style={styles.label}>Pathologies</Text>
+          <Text style={[styles.label, { textAlign: 'right' }]}>الأمراض</Text>
           <TouchableOpacity onPress={() => { setModalVisible(true); setModalType('pathology'); }} style={styles.selectBox}>
-            <Text>{selectedPathology ? pathologies.find(p => p.ID.toString() === selectedPathology)?.LibelleFR : 'Sélectionnez une pathologie'}</Text>
+            <Text>{selectedPathology ? pathologies.find(p => p.ID.toString() === selectedPathology)?.LibelleAR : 'اختر مرضًا'}</Text>
           </TouchableOpacity>
           
-          <Text style={styles.label}>Type d'atteinte</Text>
+          <Text style={[styles.label, { textAlign: 'right' }]}>نوع الإصابة</Text>
           <TouchableOpacity onPress={() => { setModalVisible(true); setModalType('pathologyType'); }} style={[styles.selectBox, !selectedPathology && styles.disabledSelectBox]} disabled={!selectedPathology}>
-            <Text>{selectedPathologyType ? pathologyTypes.find(pt => pt.ID.toString() === selectedPathologyType)?.LibelleFR : 'Sélectionnez type d\'atteinte'}</Text>
+            <Text>{selectedPathologyType ? pathologyTypes.find(pt => pt.ID.toString() === selectedPathologyType)?.LibelleAR : 'اختر نوع الإصابة'}</Text>
           </TouchableOpacity>
           
           <TouchableOpacity
             style={[styles.button, !selectedPathologyType && styles.disabledButton]}
-            onPress={() => router.push({ pathname: '/agentsfr', params: { pathology: selectedPathology, pathologyType: selectedPathologyType ,PathologyLabelFR: PathologyLabelFR} })}
+            onPress={() => router.push({ pathname: '/agentsar', params: { pathology: selectedPathology, pathologyType: selectedPathologyType ,PathologyLabelFR: PathologyLabelFR} })}
             disabled={!selectedPathologyType}
           >
-            <Text style={styles.buttonText}>Afficher les agents</Text>
+            <Text style={styles.buttonText}>عرض مسببات الأمراض</Text>
           </TouchableOpacity>
         </View>
       </View>

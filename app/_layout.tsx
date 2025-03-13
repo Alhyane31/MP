@@ -46,9 +46,14 @@ export default function RootLayout() {
         <Stack.Screen name="construction" options={{ headerShown: false }} />
         <Stack.Screen name="home" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="LangChoice" options={{ headerShown: false }} />
-        <Stack.Screen name="StartScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="LangChoice" options={{ headerShown: false}} />
+        <Stack.Screen name="StartScreen" options={{ headerShown: false ,title : "Accueil"}} />
         <Stack.Screen name="HomeScreen" options={{ title : "Pathologies"}} />
+        <Stack.Screen name="agentsfr" options={{ title : "Agent Pathogène"}} />
+        <Stack.Screen name="AllAgentsScreen" options={{ title : "Agents Pathogènes"}} />
+        <Stack.Screen name="AllNTableauScreen" options={{ title : "N° Tableau"}} />
+        <Stack.Screen name="detailsagent" options={{ title : "Pathologies"}} />
+        <Stack.Screen name="detailsNtableau" options={{ title : "Pathologies"}} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </SQLiteProvider>

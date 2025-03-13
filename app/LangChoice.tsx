@@ -14,7 +14,7 @@ const LangChoice = () => {
   };
 
   const handleArabicNavigation = () => {
-    router.push("/construction");
+    router.push("/StartScreenAR");
   };
 
   // Animation du texte

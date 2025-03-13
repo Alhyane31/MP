@@ -10,15 +10,15 @@ const StartScreen = () => {
   const router = useRouter();
 
   const handleNavigationPath = () => {
-    router.push("/HomeScreen");
+    router.push("/HomeScreenAR");
   };
 
   const handleNavigationAllAgents = () => {
-    router.push("/AllAgentsScreen");
+    router.push("/AllAgentsScreenAR");
   };
   
   const handleNavigationNtab = () => {
-    router.push("/AllNTableauScreen");
+    router.push("/AllNTableauScreenAR");
   };
   return (
     <ImageBackground source={backgroundImg} resizeMode="cover" style={styles.background}>
@@ -26,13 +26,13 @@ const StartScreen = () => {
         {/* Conteneur des boutons */}
         <View style={styles.buttonWrapper}>
           <TouchableOpacity style={styles.button} onPress={handleNavigationPath}>
-            <Text style={styles.buttonText}>Pathologies</Text>
+            <Text style={styles.buttonText}>الأمراض</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleNavigationAllAgents}>
-            <Text style={styles.buttonText}>Agents pathogènes</Text>
+            <Text style={styles.buttonText}> مسببات الأمراض</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleNavigationNtab}>
-            <Text style={styles.buttonText}>N° de Tableau</Text>
+            <Text style={styles.buttonText}>رقم الجدول</Text>
           </TouchableOpacity>
         </View>
       </View>
