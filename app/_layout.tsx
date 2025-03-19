@@ -54,6 +54,16 @@ export default function RootLayout() {
         <Stack.Screen name="AllNTableauScreen" options={{ title : "N° Tableau"}} />
         <Stack.Screen name="detailsagent" options={{ title : "Pathologies"}} />
         <Stack.Screen name="detailsNtableau" options={{ title : "Pathologies"}} />
+        <Stack.Screen name="StartScreenAR" options={{ headerShown: false ,title : "الرئيسية"}} />
+        <Stack.Screen name="HomeScreenAR" options={{ title : "الأمراض"}} />
+        <Stack.Screen name="agentsar" options={{ title : "العامل الممرض"}} />
+        <Stack.Screen name="AllAgentsScreenAR" options={{ title : "العوامل الممرضة"}} />
+        <Stack.Screen name="AllNTableauScreenAR" options={{ title : "رقم الجدول"}} />
+        <Stack.Screen name="detailsagentAR" options={{ title : "الأمراض"}} />
+        <Stack.Screen name="detailsNtableauAR" options={{ title : "الأمراض"}} />
+        <Stack.Screen name="CreditsScreen" options={{ title: "Crédits" }} />
+
+
         <Stack.Screen name="+not-found" />
       </Stack>
     </SQLiteProvider>

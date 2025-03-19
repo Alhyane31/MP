@@ -44,6 +44,9 @@ const HomeScreen = () => {
   const PathologyLabelFR = pathologyTypes.find(
     (pathologyTypes) => pathologyTypes.ID.toString() === selectedPathologyType
   )?.LibelleFR;
+  const PathologyLabelAR= pathologyTypes.find(
+    (pathologyTypes) => pathologyTypes.ID.toString() === selectedPathologyType
+  )?.LibelleAR;
   useEffect(() => {
     if (selectedPathology) {
       fetchPathologyTypes(parseInt(selectedPathology, 10)).then(setPathologyTypes);
@@ -79,7 +82,7 @@ const HomeScreen = () => {
           
           <TouchableOpacity
             style={[styles.button, !selectedPathologyType && styles.disabledButton]}
-            onPress={() => router.push({ pathname: '/agentsfr', params: { pathology: selectedPathology, pathologyType: selectedPathologyType ,PathologyLabelFR: PathologyLabelFR} })}
+            onPress={() => router.push({ pathname: '/agentsfr', params: { pathology: selectedPathology, pathologyType: selectedPathologyType ,PathologyLabelFR: PathologyLabelFR,PathologyLabelAR: PathologyLabelAR} })}
             disabled={!selectedPathologyType}
           >
             <Text style={styles.buttonText}>Afficher les agents</Text>

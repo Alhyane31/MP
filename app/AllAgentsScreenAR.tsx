@@ -1,61 +1,63 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground, StyleSheet ,Linking} from 'react-native';
+import { View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import FontAwesome from 'react-native-vector-icons/Feather';
-import { fetchDistAgents } from '@/assets/utils/databaseC';
-import { WebView } from 'react-native-webview';
+import { fetchAllAgents } from '@/assets/utils/databaseC';
+
 const image = require('@/assets/images/background.png');
 interface Agent {
-  
+  LibelleFR: string;
+   ID: number;
   NTAB: string;
-  
+  LibelleAR: string;
 }
 
-const AllNTableauScreen = () => {
+const AgentsScreen = () => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
   const [agents, setAgents] = useState<Agent[]>([]);
 
   useEffect(() => {
     const loadAgents = async () => {
-      const fetchedAgents = await fetchDistAgents();
+      const fetchedAgents = await fetchAllAgents();
       setAgents(fetchedAgents);
     };
 
     loadAgents();
   }, []);
-console.log(agents);
+
   const searchAgents = (term: string) => {
     if (!term) return agents;
     const regex = new RegExp(term, 'i');
-    return agents.filter(agent =>  regex.test(agent.NTAB));
+    return agents.filter(agent => regex.test(agent.LibelleAR) || regex.test(agent.NTAB));
   };
 
   return (
     <ImageBackground source={image} resizeMode="cover" style={styles.container}>
       <View style={styles.header}>
         <TextInput
-          style={styles.searchInput}
+          style={[styles.searchInput, { textAlign: 'right' }]}
           value={searchTerm}
           onChangeText={setSearchTerm}
-          placeholder="Recherche"
+          placeholder="بحث"
           placeholderTextColor="#555"
         />
       </View>
       <FlatList
         contentContainerStyle={styles.listContainer}
-        data={searchAgents(searchTerm).sort((a, b) => a.NTAB > b.NTAB ? 1 : -1)}
-        keyExtractor={(item) => item.NTAB.toString()}
+        data={searchAgents(searchTerm).sort((a, b) => a.LibelleAR.localeCompare(b.LibelleAR))}
+        keyExtractor={(item) => item.ID.toString()}
         renderItem={({ item }) => (
           <View style={styles.listItem}>
-            <View style={styles.textContainer}>
-              
-              <Text style={styles.info}>N.Tableau : {item.NTAB}</Text>
-            </View>
-            <TouchableOpacity onPress={() => router.push({ pathname: '/detailsNtableau', params: { NTAB : item.NTAB} })}>
+            <TouchableOpacity onPress={() => router.push({ pathname: '/detailsagentAR', params: { NTAB : item.NTAB,LibelleFR : item.LibelleFR,LibelleAR : item.LibelleAR} })}>
               <FontAwesome name="info" size={28} color="black" />
             </TouchableOpacity>
-          </View>
+          
+            <View style={styles.textContainer}>
+              <Text style={[styles.info, { textAlign: 'right', fontSize: 16 }]}>{item.LibelleAR}</Text>
+              <Text style={[styles.info, { textAlign: 'right', fontWeight: 'bold'  }]}>رقم الجدول : {item.NTAB}</Text>
+            </View>
+            </View>
         )}
       />
     </ImageBackground>
@@ -107,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AllNTableauScreen;
+export default AgentsScreen;

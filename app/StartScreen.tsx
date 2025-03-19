@@ -2,7 +2,7 @@
 // @ts-nocheck
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { TouchableOpacity, View, Text, ImageBackground, StyleSheet } from 'react-native';
+import { TouchableOpacity,TextInput, View, Text, ImageBackground, StyleSheet } from 'react-native';
 
 const backgroundImg = require('@/assets/images/background1.png');
 
@@ -13,6 +13,17 @@ const StartScreen = () => {
     router.push("/HomeScreen");
   };
 
+
+  const handleChangeLanguage = () => {
+    // Revenir à l'écran précédent
+    router.back();
+  
+    // Rediriger vers l'écran en arabe après
+    router.push({
+      pathname: '/StartScreenAR',
+      
+    });
+  };
   const handleNavigationAllAgents = () => {
     router.push("/AllAgentsScreen");
   };
@@ -25,6 +36,7 @@ const StartScreen = () => {
       <View style={styles.container}>
         {/* Conteneur des boutons */}
         <View style={styles.buttonWrapper}>
+         
           <TouchableOpacity style={styles.button} onPress={handleNavigationPath}>
             <Text style={styles.buttonText}>Pathologies</Text>
           </TouchableOpacity>
@@ -34,8 +46,28 @@ const StartScreen = () => {
           <TouchableOpacity style={styles.button} onPress={handleNavigationNtab}>
             <Text style={styles.buttonText}>N° de Tableau</Text>
           </TouchableOpacity>
+          
+
+
+          {
+
+            
+          }
+          <TextInput
+                   style={styles.searchInput}
+                    placeholder="Recherche rapide : Pathologie/agent"
+                    placeholderTextColor="#555"
+                  />
         </View>
       </View>
+      <TouchableOpacity
+          onPress={handleChangeLanguage}
+          style={{ position: 'absolute', bottom: 20,  alignSelf: 'center'}}
+        >
+          <Text style={{ color: 'white', fontSize: 16, textDecorationLine: 'underline', fontWeight: 'bold' }}>
+          Voir en arabe
+          </Text>
+        </TouchableOpacity>
     </ImageBackground>
   );
 };
@@ -43,6 +75,14 @@ const StartScreen = () => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
+  },searchInput: {
+    marginTop: 20, 
+    backgroundColor: 'white',
+    width: '100%',
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
   },
   container: {
     flex: 1,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground, StyleSheet,Modal,Linking
   ,SafeAreaView, } from 'react-native';
   import { WebView } from 'react-native-webview';
-import { useLocalSearchParams ,useRouter} from 'expo-router';
+import { useLocalSearchParams,useRouter } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import * as FileSystem from 'expo-file-system';
 import Pdf from 'react-native-pdf';
@@ -14,14 +14,14 @@ const image = require('../assets/images/background.png');
 
 
 const DetailsNtableau = () => {
+  const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const { NTAB } = useLocalSearchParams();
   const [pathologies, setPathologies] = useState<any>([]);
   const [agents, setAgents] = useState<any>([]);
-  const pdfUrl = `https://raw.githubusercontent.com/Alhyane31/MP/main/FilesMP/FR/${selectedFile}.pdf`;
+  const pdfUrl = `https://raw.githubusercontent.com/Alhyane31/MP/main/FilesMP/AR/${selectedFile}.pdf`;
   const [showDownloadView, setShowDownloadView] = useState(false);
   const [countdown, setCountdown] = useState(0);
-  const router = useRouter();
 // Démarrer le compte à rebours lorsque le téléchargement commence
 useEffect(() => {
   if (countdown > 0){
@@ -31,27 +31,25 @@ useEffect(() => {
     setShowDownloadView(false);
   }
 }, [countdown]);
-
-const handleDownload = () => {
-  Linking.openURL(pdfUrl); 
-  setShowDownloadView(true);
-  setCountdown(10); // Lancer un compte à rebours de 10 secondes
-};
 const handleChangeLanguage = () => {
   // Revenir à l'écran précédent
   router.back();
 
   // Rediriger vers l'écran en arabe après
   router.push({
-    pathname: '/detailsNtableauAR',
+    pathname: '/detailsNtableau',
     params: {
-      NTAB
+      NTAB,
+      
       
     },
   });
 };
-
-
+const handleDownload = () => {
+  Linking.openURL(pdfUrl); 
+  setShowDownloadView(true);
+  setCountdown(10); // Lancer un compte à rebours de 10 secondes
+};
   useEffect(() => {
     const loadData = async () => {
       
@@ -61,44 +59,43 @@ const handleChangeLanguage = () => {
     loadData();
   }, [NTAB]);
 
-  const handleClose = () => {
-    setSelectedFile(null);
-  };
-
- // const url = `https://raw.githubusercontent.com/Alhyane31/MP/fcdf8a7e8c79e527dcbc2d0cbc688e2fc5ec11fd/FilesMP/FR/${selectedFile}.pdf`;
+ 
+ // const url = `https://raw.githubusercontent.com/Alhyane31/MP/fcdf8a7e8c79e527dcbc2d0cbc688e2fc5ec11fd/FilesMP/AR/${selectedFile}.pdf`;
 
   return (
     <ImageBackground source={image} resizeMode="cover" style={{ flex: 1, padding: 15 }}>
-      <View style={{ backgroundColor: 'white', padding: 15, marginBottom: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text style={{ fontSize: 16 }}>N.Tableau : {NTAB}</Text>
-        <TouchableOpacity onPress={() => setSelectedFile(NTAB.toString().replace(/\./g, '-'))}>
+        
+     <View style={{ backgroundColor: 'white', padding: 15, marginBottom: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        
+         <TouchableOpacity onPress={() => setSelectedFile(NTAB.toString().replace(/\./g, '-'))}>
           <FontAwesome name="file-pdf-o" size={25} color="black" />
         </TouchableOpacity>
+        <Text style={{ fontSize: 16 , textAlign: 'right'  }}>رقم الجدول : {NTAB}</Text>
       </View>
 
-      <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginBottom: 10 }}>Agents pathogènes :</Text>
-      <FlatList 
+      <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginBottom: 10 }}>العوامل الممرضة :</Text>
+      <FlatList
         data={agents}
-        keyExtractor={(item) => item.LibelleFR}
+        keyExtractor={(item) => item.LibelleAR}
         renderItem={({ item }) => (
           <View style={{ backgroundColor: 'white', padding: 15, marginBottom: 10 }}>
-            <Text>{item.LibelleFR}</Text>
+            <Text style = {{fontSize: 16, textAlign: 'right' }}>{item.LibelleAR}</Text>
           </View>
         )}
       />
 
-      <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginBottom: 10 ,marginTop : 10}}>Pathologies :</Text>
+      <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginBottom: 10 ,marginTop : 10}}>الأمراض :</Text>
       <FlatList style={{  marginBottom: 30}}
         data={pathologies}
-        keyExtractor={(item) => item.LibelleFR}
+        keyExtractor={(item) => item.LibelleAR}
         renderItem={({ item }) => (
           <View style={{ backgroundColor: 'white', padding: 15, marginBottom: 10 }}>
-            <Text>{item.LibelleFR}</Text>
+            <Text style = {{ fontSize: 16,textAlign: 'right' }}>{item.LibelleAR}</Text>
           </View>
         )}
       />
 
-      {/* Affichage du PDF avec WebView */}
+     {/* Affichage du PDF avec WebView */}
     <Modal
                style={{ flex: 1, backgroundColor: '#233b67' }}
                visible={Boolean(selectedFile)}
@@ -154,7 +151,7 @@ const handleChangeLanguage = () => {
           style={{ position: 'absolute', bottom: 20,  alignSelf: 'center'}}
         >
           <Text style={{ color: 'white', fontSize: 16, textDecorationLine: 'underline', fontWeight: 'bold' }}>
-            Voir en arabe
+          تغيير اللغة إلى الفرنسية
           </Text>
         </TouchableOpacity>
     </ImageBackground>

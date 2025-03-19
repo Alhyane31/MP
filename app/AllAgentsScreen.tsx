@@ -53,7 +53,7 @@ const AgentsScreen = () => {
               <Text style={styles.name}>{item.LibelleFR}</Text>
               <Text style={styles.info}>N.Tableau : {item.NTAB}</Text>
             </View>
-            <TouchableOpacity onPress={() => router.push({ pathname: '/detailsagent', params: { NTAB : item.NTAB,LibelleFR : item.LibelleFR} })}>
+            <TouchableOpacity onPress={() => router.push({ pathname: '/detailsagent', params: { NTAB : item.NTAB,LibelleFR : item.LibelleFR,LibelleAR : item.LibelleAR} })}>
               <FontAwesome name="info" size={28} color="black" />
             </TouchableOpacity>
           </View>

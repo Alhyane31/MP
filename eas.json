@@ -30,6 +30,9 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {"ios": {
+      "appleId":"ahmadalhyane@gmail.com",
+        "ascAppId": "6743329745",
+        "appleTeamId":"CYQ678F9YA"}}
   }
 }

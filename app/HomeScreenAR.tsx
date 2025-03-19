@@ -41,6 +41,9 @@ const HomeScreen = () => {
     fetchPathologies();
   }, []);
  
+  const PathologyLabelAR = pathologyTypes.find(
+    (pathologyTypes) => pathologyTypes.ID.toString() === selectedPathologyType
+  )?.LibelleAR;
   const PathologyLabelFR = pathologyTypes.find(
     (pathologyTypes) => pathologyTypes.ID.toString() === selectedPathologyType
   )?.LibelleFR;
@@ -79,7 +82,7 @@ const HomeScreen = () => {
           
           <TouchableOpacity
             style={[styles.button, !selectedPathologyType && styles.disabledButton]}
-            onPress={() => router.push({ pathname: '/agentsar', params: { pathology: selectedPathology, pathologyType: selectedPathologyType ,PathologyLabelFR: PathologyLabelFR} })}
+            onPress={() => router.push({ pathname: '/agentsar', params: { pathology: selectedPathology, pathologyType: selectedPathologyType ,PathologyLabelFR: PathologyLabelFR,PathologyLabelAR: PathologyLabelAR} })}
             disabled={!selectedPathologyType}
           >
             <Text style={styles.buttonText}>عرض مسببات الأمراض</Text>
@@ -95,7 +98,7 @@ const HomeScreen = () => {
               keyExtractor={(item) => item.ID.toString()}
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => handleSelection(item.ID.toString())} style={styles.modalItem}>
-                  <Text style={styles.modalItemText}>{item.LibelleFR}</Text>
+                  <Text style={styles.modalItemText}>{item.LibelleAR}</Text>
                 </TouchableOpacity>
               )}
             />

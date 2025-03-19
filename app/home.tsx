@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { useRouter } from "expo-router";
+import { useRouter,Link } from "expo-router";
 import { ImageBackground, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 
 
@@ -21,7 +21,7 @@ router.push("/LangChoice");
     <TouchableOpacity style={{ flex: 1 }} onPress={handleScreenTouch} activeOpacity={1}>
       <ImageBackground source={backgroundImg} style={styles.background}>
         <View style={styles.center}>
-          <Text style={[styles.text, { marginBottom: 20, textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 16 }]}>
+          <Text style={[styles.text, { marginBottom: 20, textAlign: 'justify', color: 'white', fontWeight: 'bold', fontSize: 16 }]}>
             Cette application vous propose les dispositifs réglementaires concernant
             les maladies professionnelles extraits du Bulletin Officiel marocain N° 160-14 du 19 Rabii I 1435 (21 janvier 2014)
           </Text>
@@ -29,8 +29,14 @@ router.push("/LangChoice");
             هذا التطبيق يقدم لك الأنظمة التنظيمية المتعلقة بأمراض العمل من مرسوم المغربي 
             الرسمي رقم 160-14 بتاريخ 19 ربيع الأول 1435 هـ (21 يناير 2014)
           </Text>
-          <Text style={[styles.copyrightText, { color: 'white', fontWeight: 'bold' }]}>
-            © 2025 Tous droits réservés.
+          
+         <Text style={[styles.copyrightText, { color: 'white', fontWeight: 'bold' }]}>
+            
+ 
+© 2025 Tous droits réservés. | <Link href="/CreditsScreen"><Text style={{ color: 'white', textDecorationLine: 'underline' }}>
+    Crédits
+  </Text>
+</Link>
           </Text>
         </View>
       </ImageBackground>

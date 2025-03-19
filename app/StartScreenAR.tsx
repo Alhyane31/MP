@@ -8,7 +8,16 @@ const backgroundImg = require('@/assets/images/background1.png');
 
 const StartScreen = () => {
   const router = useRouter();
-
+  const handleChangeLanguage = () => {
+    // Revenir à l'écran précédent
+    router.back();
+  
+    // Rediriger vers l'écran en arabe après
+    router.push({
+      pathname: '/StartScreen',
+      
+    });
+  };
   const handleNavigationPath = () => {
     router.push("/HomeScreenAR");
   };
@@ -29,13 +38,21 @@ const StartScreen = () => {
             <Text style={styles.buttonText}>الأمراض</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleNavigationAllAgents}>
-            <Text style={styles.buttonText}> مسببات الأمراض</Text>
+            <Text style={styles.buttonText}>العوامل الممرضة</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleNavigationNtab}>
             <Text style={styles.buttonText}>رقم الجدول</Text>
           </TouchableOpacity>
         </View>
       </View>
+      <TouchableOpacity
+                onPress={handleChangeLanguage}
+                style={{ position: 'absolute', bottom: 20,  alignSelf: 'center'}}
+              >
+                <Text style={{ color: 'white', fontSize: 16, textDecorationLine: 'underline', fontWeight: 'bold' }}>
+                تغيير اللغة إلى الفرنسية
+                </Text>
+              </TouchableOpacity>
     </ImageBackground>
   );
 };
