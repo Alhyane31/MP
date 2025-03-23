@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'; 
-import { fetchPathTypes, fetchPathologyTypes } from '@/assets/utils/databaseC';
+import { fetchPathTypes, fetchPathologyTypes ,updatePathologyHistory} from '@/assets/utils/databaseC';
 import { 
   View, 
   Text, 
@@ -54,7 +54,6 @@ const HomeScreen = () => {
       setPathologyTypes([]);
     }
   }, [selectedPathology]);
-
   const handleSelection = (itemValue: string) => {
     if (modalType === 'pathology') {
       setSelectedPathology(itemValue);
@@ -80,9 +79,10 @@ const HomeScreen = () => {
             <Text>{selectedPathologyType ? pathologyTypes.find(pt => pt.ID.toString() === selectedPathologyType)?.LibelleFR : 'Sélectionnez type d\'atteinte'}</Text>
           </TouchableOpacity>
           
+
           <TouchableOpacity
             style={[styles.button, !selectedPathologyType && styles.disabledButton]}
-            onPress={() => router.push({ pathname: '/agentsfr', params: { pathology: selectedPathology, pathologyType: selectedPathologyType ,PathologyLabelFR: PathologyLabelFR,PathologyLabelAR: PathologyLabelAR} })}
+            onPress={async() =>{console.log(selectedPathologyType);await updatePathologyHistory(parseInt(selectedPathologyType, 10)); router.push({ pathname: '/agentsfr', params: { pathology: selectedPathology, pathologyType: selectedPathologyType ,PathologyLabelFR: PathologyLabelFR,PathologyLabelAR: PathologyLabelAR} })}}
             disabled={!selectedPathologyType}
           >
             <Text style={styles.buttonText}>Afficher les agents</Text>

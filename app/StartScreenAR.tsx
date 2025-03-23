@@ -2,8 +2,8 @@
 // @ts-nocheck
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { TouchableOpacity, View, Text, ImageBackground, StyleSheet } from 'react-native';
-
+import { TouchableOpacity, View, Text, ImageBackground,Image, StyleSheet } from 'react-native';
+import historyIcon from '@/assets/icons/history.png';
 const backgroundImg = require('@/assets/images/background1.png');
 
 const StartScreen = () => {
@@ -31,6 +31,11 @@ const StartScreen = () => {
   };
   return (
     <ImageBackground source={backgroundImg} resizeMode="cover" style={styles.background}>
+      <View style={styles.iconContainer}>
+          <TouchableOpacity onPress={() => router.push({ pathname: '/HistoryScreenAR'})}>
+            <Image source={historyIcon} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
       <View style={styles.container}>
         {/* Conteneur des boutons */}
         <View style={styles.buttonWrapper}>
@@ -83,6 +88,15 @@ const styles = StyleSheet.create({
     
     fontSize: 20,
    
+  }, iconContainer: {
+    position: 'absolute',
+    top: 20, // Ajuste selon ton besoin
+    right: 20, // Position en haut à droite
+  },
+  icon: {
+    width: 30,
+    height: 30,
+    tintColor: 'white', // Facultatif si tu veux changer la couleur
   },
 });
 

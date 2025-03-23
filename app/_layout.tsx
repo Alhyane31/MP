@@ -62,7 +62,8 @@ export default function RootLayout() {
         <Stack.Screen name="detailsagentAR" options={{ title : "الأمراض"}} />
         <Stack.Screen name="detailsNtableauAR" options={{ title : "الأمراض"}} />
         <Stack.Screen name="CreditsScreen" options={{ title: "Crédits" }} />
-
+        <Stack.Screen name="HistoryScreen" options={{ title : "Historique des accès"}} />
+        <Stack.Screen name="HistoryScreenAR" options={{ title: "سجل الوصول" }} />
 
         <Stack.Screen name="+not-found" />
       </Stack>

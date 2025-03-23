@@ -130,7 +130,68 @@ export const fetchPath = async (NTAB: string): Promise<Path[]> => {
   } catch (error: any) {
     console.error('❌ Erreur lors de la récupération des Path:', error.message);
     return [];
-  }
-  
+  }};
+  //Historyyyy ================================================================================================
+  export const updatePathologyHistory = async (pathologyID: number): Promise<void> => {
+    try {
+      console.log(new Date().toISOString());
+
+        // Mettre `history` à la date actuelle pour le pathologyID donné
+        await db.runAsync(
+            'UPDATE Path SET history = ? WHERE ID = ?',
+            [new Date().toISOString(), pathologyID]
+        );
+
+        console.log(`✅ Pathology ID ${pathologyID} history set to current timestamp.`);
+    } catch (error) {
+        console.error('❌ Erreur lors de la mise à jour de l\'historique:', error);
+    }
 };
+
+export const updateAgentsHistory = async (AgentID: number): Promise<void> => {
+  try {
+    console.log(new Date().toISOString());
+
+      // Mettre `history` à la date actuelle pour le pathologyID donné
+      await db.runAsync(
+          'UPDATE Agents SET history = ? WHERE ID = ?',
+          [new Date().toISOString(), AgentID]
+      );
+
+      console.log(`✅ Agent ID ${AgentID} history set to current timestamp.`);
+  } catch (error) {
+      console.error('❌ Erreur lors de la mise à jour de l\'historique Agent:', error);
+  }
+};
+
+  // Fonction pour récupérer l'history path
+  export const fetchPathHistory = async () => {
+    try {
+      const results: Agent[] = await db.getAllAsync(
+        'SELECT * FROM Path WHERE history IS NOT NULL ORDER BY history DESC LIMIT 3'
+      );
+  
+      console.log(results);
+      return results;
+    } catch (error: any) {
+      console.error('❌ Erreur lors de la récupération de l\'historique path:', error.message);
+      return [];
+    }
+  };
+ // Fonction pour récupérer l'history path
+ export const fetchAgentsHistory = async () => {
+  try {
+    const results: Agent[] = await db.getAllAsync(
+      'SELECT * FROM Agents WHERE history IS NOT NULL ORDER BY history DESC LIMIT 3'
+    );
+
+    console.log(results);
+    return results;
+  } catch (error: any) {
+    console.error('❌ Erreur lors de la récupération de l\'historique Agrnts:', error.message);
+    return [];
+  }
+};
+  //Historyyyy ================================================================================================
+
 export default db;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'; 
-import { fetchPathTypes, fetchPathologyTypes } from '@/assets/utils/databaseC';
+import { fetchPathTypes, updatePathologyHistory,fetchPathologyTypes } from '@/assets/utils/databaseC';
 import { 
   View, 
   Text, 
@@ -82,7 +82,7 @@ const HomeScreen = () => {
           
           <TouchableOpacity
             style={[styles.button, !selectedPathologyType && styles.disabledButton]}
-            onPress={() => router.push({ pathname: '/agentsar', params: { pathology: selectedPathology, pathologyType: selectedPathologyType ,PathologyLabelFR: PathologyLabelFR,PathologyLabelAR: PathologyLabelAR} })}
+            onPress={async() =>{console.log(selectedPathologyType);await updatePathologyHistory(parseInt(selectedPathologyType, 10)); router.push({ pathname: '/agentsar', params: { pathology: selectedPathology, pathologyType: selectedPathologyType ,PathologyLabelFR: PathologyLabelFR,PathologyLabelAR: PathologyLabelAR} })}}
             disabled={!selectedPathologyType}
           >
             <Text style={styles.buttonText}>عرض مسببات الأمراض</Text>

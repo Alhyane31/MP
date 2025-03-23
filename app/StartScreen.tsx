@@ -3,6 +3,9 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { TouchableOpacity,TextInput, View, Text, ImageBackground, StyleSheet } from 'react-native';
+import { Image } from 'react-native';
+import historyIcon from '@/assets/icons/history.png';
+import { fetchPathHistory } from '@/assets/utils/databaseC';
 
 const backgroundImg = require('@/assets/images/background1.png');
 
@@ -33,6 +36,11 @@ const StartScreen = () => {
   };
   return (
     <ImageBackground source={backgroundImg} resizeMode="cover" style={styles.background}>
+       <View style={styles.iconContainer}>
+    <TouchableOpacity onPress={() => router.push({ pathname: '/HistoryScreen'})}>
+      <Image source={historyIcon} style={styles.icon} />
+    </TouchableOpacity>
+  </View>
       <View style={styles.container}>
         {/* Conteneur des boutons */}
         <View style={styles.buttonWrapper}>
@@ -53,11 +61,7 @@ const StartScreen = () => {
 
             
           }
-          <TextInput
-                   style={styles.searchInput}
-                    placeholder="Recherche rapide : Pathologie/agent"
-                    placeholderTextColor="#555"
-                  />
+                   
         </View>
       </View>
       <TouchableOpacity
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
   },searchInput: {
-    marginTop: 20, 
+    marginTop: 15, 
     backgroundColor: 'white',
     width: '100%',
     padding: 10,
@@ -106,6 +110,16 @@ const styles = StyleSheet.create({
     
     fontSize: 20,
    
+  },
+  iconContainer: {
+    position: 'absolute',
+    top: 20, // Ajuste selon ton besoin
+    right: 20, // Position en haut à droite
+  },
+  icon: {
+    width: 30,
+    height: 30,
+    tintColor: 'white', // Facultatif si tu veux changer la couleur
   },
 });
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import FontAwesome from 'react-native-vector-icons/Feather';
-import { fetchAllAgents } from '@/assets/utils/databaseC';
+import { fetchAllAgents, updateAgentsHistory } from '@/assets/utils/databaseC';
 
 const image = require('@/assets/images/background.png');
 interface Agent {
@@ -53,7 +53,7 @@ const AgentsScreen = () => {
               <Text style={styles.name}>{item.LibelleFR}</Text>
               <Text style={styles.info}>N.Tableau : {item.NTAB}</Text>
             </View>
-            <TouchableOpacity onPress={() => router.push({ pathname: '/detailsagent', params: { NTAB : item.NTAB,LibelleFR : item.LibelleFR,LibelleAR : item.LibelleAR} })}>
+            <TouchableOpacity onPress={async() =>{console.log(item.ID);await updateAgentsHistory(parseInt(item.ID, 10)); router.push({ pathname: '/detailsagent', params: { NTAB : item.NTAB,LibelleFR : item.LibelleFR,LibelleAR : item.LibelleAR} })}}>
               <FontAwesome name="info" size={28} color="black" />
             </TouchableOpacity>
           </View>

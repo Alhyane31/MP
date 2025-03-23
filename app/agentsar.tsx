@@ -72,10 +72,10 @@ const handleDownload = () => {
     <ImageBackground source={image} resizeMode="cover" style={{ flex: 1, padding: 5 }}>
       <SafeAreaView style={{ flex: 1 }}>
         
-       
+      
 
         <View style={{ alignItems: 'center',  marginBottom: 20 , padding : 10}}>
-          <Text style={{ fontSize: 22, fontWeight: 'bold', color: 'white' }}> {PathologyLabelAR}</Text>
+          <Text style={{ fontSize: 22, textAlign: 'right',fontWeight: 'bold', color: 'white' }}> {PathologyLabelAR}</Text>
         </View>
 
         <FlatList style={{  marginBottom: 30}}

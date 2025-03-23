@@ -17,18 +17,21 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
       CREATE TABLE IF NOT EXISTS PathType (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         LibelleFR TEXT NOT NULL,
-        LibelleAR TEXT NOT NULL
+        LibelleAR TEXT NOT NULL,
+        History DATETIME
       );
       CREATE TABLE IF NOT EXISTS Path (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         LibelleFR TEXT NOT NULL,
         LibelleAR TEXT NOT NULL,
         PathTypeID INTEGER NOT NULL,
+        History DATETIME,
         FOREIGN KEY(PathTypeID) REFERENCES PathType(ID)
       );
       CREATE TABLE IF NOT EXISTS PathTab (
         "IDPath" INTEGER NOT NULL,
         "NTAB" TEXT NOT NULL,
+        "History" DATETIME,
         FOREIGN KEY("IDPath") REFERENCES "Path",
         PRIMARY KEY("IDPath", "NTAB")
       );
@@ -37,6 +40,7 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
         "LibelleFR" TEXT NOT NULL,
         "LibelleAR" TEXT NOT NULL,
         "NTAB" TEXT,
+        "History" DATETIME,
         PRIMARY KEY("ID")
       );
     `); console.log('Tables created with no errors');} catch (error:any) {
