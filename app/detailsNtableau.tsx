@@ -5,7 +5,7 @@ import { View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground, Sty
 import { useLocalSearchParams ,useRouter} from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import * as FileSystem from 'expo-file-system';
-import Pdf from 'react-native-pdf';
+
 import { fetchPathologies,fetchNTABAgents } from '@/assets/utils/databaseC';
 
 const image = require('../assets/images/background.png');
@@ -71,7 +71,7 @@ const handleChangeLanguage = () => {
     <ImageBackground source={image} resizeMode="cover" style={{ flex: 1, padding: 15 }}>
       <View style={{ backgroundColor: 'white', padding: 15, marginBottom: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Text style={{ fontSize: 16 }}>N.Tableau : {NTAB}</Text>
-        <TouchableOpacity onPress={() => setSelectedFile(NTAB.toString().replace(/\./g, '-'))}>
+        <TouchableOpacity onPress={() => setTimeout(() => setSelectedFile(NTAB.toString().replace(/\./g, '-')), 100)}>
           <FontAwesome name="file-pdf-o" size={25} color="black" />
         </TouchableOpacity>
       </View>
@@ -113,7 +113,11 @@ const handleChangeLanguage = () => {
                      <WebView source={{ uri: pdfUrl }} style={{ flex: 1 }} />
                    ) : (
                      // WebView intégrée via Google Viewer
-                     <WebView source={{ uri: `https://docs.google.com/gview?embedded=true&url=${pdfUrl}` }} style={{ flex: 1 }} />
+                     <WebView key={selectedFile}
+                     source={{ uri: `https://docs.google.com/gview?embedded=true&url=${pdfUrl}` }} style={{ flex: 1 }} 
+                     onError={() => {
+                      console.error("Erreur de chargement du PDF");
+                    }}/>
                    )}
          
                    {/* Conteneur des boutons */}

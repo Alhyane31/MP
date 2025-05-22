@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   copyrightText: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 5,
     textAlign: 'center',
     width: '95%',
     fontSize: 12,

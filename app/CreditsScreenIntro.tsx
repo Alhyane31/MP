@@ -23,24 +23,21 @@ router.push("/home");
         <View style={styles.center}>
        
  
-  <Text style={[styles.text, { textAlign: 'left', textDecorationLine: 'underline' }]}>Elaboré par :{"\n"}{"\n"}</Text>
-  <Text style={[styles.text, { top:10,padding : 10 ,textAlign: 'left', textDecorationLine: 'underline' }]}>Equipe Scientifique :{"\n"}</Text>
+  <Text style={[styles.text, { textAlign: 'left', textDecorationLine: 'underline' }]}>{"\n"}{"\n"}{"\n"}{"\n"}Elaboré par :{"\n"}</Text>
  
   <Text style={[styles.text, { left :'30%',top: 10,bottom : 20,textAlign: 'left', }]}>
  
   Dr. Fadwa Darid{"\n"}
   Pr. Loubna Tahri{"\n"}
-  Pr. Abdeljalil El Kholti{"\n"}
-  </Text>{"\n\n"}
+  Pr. Abdeljalil El Kholti{"\n"}{"\n\n"}
+  </Text>
 
-  <Text style={[styles.text, {top: 10, padding : 10 ,textAlign: 'left', textDecorationLine: 'underline' }]}>Equipe Technique :{"\n"}</Text>
-  <Text style={[styles.text, { left :'30%',top: 10,bottom : 20,textAlign: 'left', }]}>
-  Ahmad Alhyane{"\n"}
-  Reda Soulami{"\n"}
-  Abdelillah Badris{"\n"}
-  Hamza Manssouri{"\n"}
-  {"\n"}{"\n"}
-  </Text>{"\n\n"}
+  <Text style={[styles.text2, {textAlign: 'center' }]}>Unité de Santé au Travail</Text>
+ <Text style={[styles.text2, {textAlign: 'center' }]}>Faculté de Médecine et de Pharmacie</Text>  
+  <Text style={[styles.text2, {textAlign: 'center' }]}>Université Hassan II de Casablanca{"\n"}</Text>  
+ 
+ 
+ 
   
  
   
@@ -68,7 +65,15 @@ const styles = StyleSheet.create({
     width: '95%',
     color: 'white', 
     fontWeight: 'bold', 
-    fontSize: 14,
+    fontSize: 16,
+  
+    
+  },
+  text2: {
+    width: '95%',
+    color: 'white', 
+    fontWeight: 'bold', 
+    fontSize: 16,
   
     
   },

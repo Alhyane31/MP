@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
    
   }, iconContainer: {
     position: 'absolute',
-    top: 20, // Ajuste selon ton besoin
-    right: 20, // Position en haut à droite
+    top: 50, // Ajuste selon ton besoin
+    right: 30, // Position en haut à droite
   },
   icon: {
     width: 30,

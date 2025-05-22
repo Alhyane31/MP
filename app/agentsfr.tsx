@@ -99,7 +99,7 @@ const AgentsScreen = () => {
                 <Text style={{ fontSize: 16, textAlign: 'justify' }}>{item.LibelleFR}</Text>
                 <Text style={{ fontWeight: 'bold' }}>N.Tableau: {item.NTAB}</Text>
               </View>
-              <TouchableOpacity style={{ alignSelf: 'flex-end', marginTop: 10 }} onPress={() => setSelectedFile(item.NTAB.toString().replace(/\./g, '-'))}>
+              <TouchableOpacity style={{ alignSelf: 'flex-end', marginTop: 10 }} onPress={() => setTimeout(() => setSelectedFile(item.NTAB.toString().replace(/\./g, '-')), 100)}>
                 <FontAwesome name="file-pdf-o" size={25} color="black" />
               </TouchableOpacity>
             </View>
@@ -116,7 +116,13 @@ const AgentsScreen = () => {
             <View style={{ flex: 1, bottom: 0, height: "80%", width: '100%', borderTopLeftRadius: 5, borderTopRightRadius: 5, maxHeight: '100%', padding: 0 }}>
               
               {/* WebView pour afficher l'aperçu du PDF */}
-              <WebView source={{ uri: `https://docs.google.com/gview?embedded=true&url=${pdfUrl}` }} style={{ flex: 1 }} />
+              <WebView 
+              key={selectedFile}
+              source={{ uri: `https://docs.google.com/gview?embedded=true&url=${pdfUrl}` }} 
+              style={{ flex: 1 }}
+              onError={() => {
+                console.error("Erreur de chargement du PDF");
+              }}  />
 
               {/* Conteneur des boutons */}
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#233b67' }}>

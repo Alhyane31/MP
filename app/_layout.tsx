@@ -46,8 +46,8 @@ export default function RootLayout() {
         <Stack.Screen name="construction" options={{ headerShown: false }} />
         <Stack.Screen name="home" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="LangChoice" options={{ headerShown: false}} />
-        <Stack.Screen name="StartScreen" options={{ headerShown: false ,title : "Accueil"}} />
+        <Stack.Screen name="LangChoice" options={{ headerShown: true,title : ""}} />
+        <Stack.Screen name="StartScreen" options={{ headerShown: true ,title : "Accueil"}} />
         <Stack.Screen name="HomeScreen" options={{ title : "Pathologies"}} />
         <Stack.Screen name="agentsfr" options={{ title : "Agent Pathogène"}} />
         <Stack.Screen name="AllAgentsScreen" options={{ title : "Agents Pathogènes"}} />
@@ -62,6 +62,7 @@ export default function RootLayout() {
         <Stack.Screen name="detailsagentAR" options={{ title : "الأمراض"}} />
         <Stack.Screen name="detailsNtableauAR" options={{ title : "الأمراض"}} />
         <Stack.Screen name="CreditsScreen" options={{ title: "Crédits" }} />
+        <Stack.Screen name="CreditsScreenIntro" options={{ headerShown: false }} />
         <Stack.Screen name="HistoryScreen" options={{ title : "Historique des accès"}} />
         <Stack.Screen name="HistoryScreenAR" options={{ title: "سجل الوصول" }} />
 

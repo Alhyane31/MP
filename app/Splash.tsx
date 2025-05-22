@@ -13,7 +13,7 @@ export default function Splash({ setIsLoading }: SplashProps): JSX.Element {
 
   useEffect(() => {
     setTimeout(() => {
-      router.replace('/home');//
+      router.replace('/CreditsScreenIntro');//
     }, 2000); // Attendre 2 secondes
   }, [router]); // Ajout de `router` comme dépendance
 

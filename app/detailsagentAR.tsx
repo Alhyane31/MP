@@ -90,7 +90,7 @@ const router = useRouter();
             shadowRadius: 4,
             elevation: 2,
           }}
-        ><TouchableOpacity onPress={() => setSelectedFile(NTAB.toString().replace(/\./g, '-'))}>
+        ><TouchableOpacity onPress={() => setTimeout(() => setSelectedFile(NTAB.toString().replace(/\./g, '-')), 100)}>
             <FontAwesome name="file-pdf-o" size={25} color="black" />
           </TouchableOpacity>
        
@@ -140,7 +140,11 @@ const router = useRouter();
                      <WebView source={{ uri: pdfUrl }} style={{ flex: 1 }} />
                    ) : (
                      // WebView intégrée via Google Viewer
-                     <WebView source={{ uri: `https://docs.google.com/gview?embedded=true&url=${pdfUrl}` }} style={{ flex: 1 }} />
+                     <WebView key={selectedFile}
+                     source={{ uri: `https://docs.google.com/gview?embedded=true&url=${pdfUrl}` }} style={{ flex: 1 }}
+                     onError={() => {
+                      console.error("Erreur de chargement du PDF");
+                    }} />
                    )}
          
                    {/* Conteneur des boutons */}
