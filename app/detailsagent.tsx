@@ -23,7 +23,7 @@ const DetailsAgent = () => {
   const { NTAB } = useLocalSearchParams<any>();
   const { LibelleFR,LibelleAR } = useLocalSearchParams<any>();
 
-  const pdfUrl = `https://raw.githubusercontent.com/Alhyane31/MP/main/FilesMP/FR/${selectedFile}.pdf`;
+  const pdfUrl = `https://raw.githubusercontent.com/Alhyane31/MP/cde7e1f8effc5b3ce03d522fc0e84770df2716e6/FilesMP/FR/${selectedFile}.pdf`;
   const [showDownloadView, setShowDownloadView] = useState(false);
   const [countdown, setCountdown] = useState(0);
 // Démarrer le compte à rebours lorsque le téléchargement commence

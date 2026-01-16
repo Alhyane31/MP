@@ -29,19 +29,8 @@ router.push("/home");
   <Text style={[styles.text, { left :'30%',top: 10,bottom : 20,textAlign: 'left', }]}>
  
   Dr. Fadwa Darid{"\n"}
-  Pr. Loubna Tahri{"\n"}
-  Pr. Abdeljalil El Kholti{"\n"}
-  </Text>{"\n\n"}
+  </Text>
 
-  <Text style={[styles.text, {top: 10, padding : 10 ,textAlign: 'left', textDecorationLine: 'underline' }]}>Equipe Technique :{"\n"}</Text>
-  <Text style={[styles.text, { left :'30%',top: 10,bottom : 20,textAlign: 'left', }]}>
-  Ahmad Alhyane{"\n"}
-  Reda Soulami{"\n"}
-  Abdelillah Badris{"\n"}
-  Hamza Manssouri{"\n"}
-  {"\n"}{"\n"}
-  </Text>{"\n\n"}
-  
  
   
 

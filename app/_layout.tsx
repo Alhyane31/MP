@@ -9,6 +9,8 @@ import { SQLiteProvider } from 'expo-sqlite';
 import { migrateDbIfNeeded } from '@/assets/utils/database'; 
 import { Slot } from 'expo-router';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context'; // ✅ ici
+import { StyleSheet } from 'react-native';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -32,7 +34,8 @@ export default function RootLayout() {
   }
 
   return (
-    
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <SQLiteProvider databaseName="MP.db" onInit={migrateDbIfNeeded}>
       <Stack  screenOptions={{
@@ -54,7 +57,7 @@ export default function RootLayout() {
         <Stack.Screen name="AllNTableauScreen" options={{ title : "N° Tableau"}} />
         <Stack.Screen name="detailsagent" options={{ title : "Pathologies"}} />
         <Stack.Screen name="detailsNtableau" options={{ title : "Pathologies"}} />
-        <Stack.Screen name="StartScreenAR" options={{ headerShown: false ,title : "الرئيسية"}} />
+        <Stack.Screen name="StartScreenAR" options={{ headerShown: true ,title : "الرئيسية"}} />
         <Stack.Screen name="HomeScreenAR" options={{ title : "الأمراض"}} />
         <Stack.Screen name="agentsar" options={{ title : "العامل الممرض"}} />
         <Stack.Screen name="AllAgentsScreenAR" options={{ title : "العوامل الممرضة"}} />
@@ -70,7 +73,18 @@ export default function RootLayout() {
       </Stack>
     </SQLiteProvider>
       
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </ThemeProvider>
+    </SafeAreaView>
+    </SafeAreaProvider>
+ 
   );
+
+  
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#1D304C',
+  },
+});

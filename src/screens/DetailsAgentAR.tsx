@@ -48,7 +48,7 @@ const DetailsAgentAR = () => {
     fetchPathologies();
    // console.log(agents)
   }, []);
-  const url =`https://raw.githubusercontent.com/Alhyane31/MP/0aa6ffcbdeda0c271077c410c41eb4e21b7d759f/FilesMP/FR/${selectedFile}.pdf`;
+  const url =`@/assets/utils/FilesMP/FR/${selectedFile}.pdf`;
   if (!agent) {
     return <Text>Loading...</Text>;
   }
@@ -116,7 +116,7 @@ const DetailsAgentAR = () => {
               <Pdf
                 trustAllCerts={false}
                 source={{
-                  uri: `https://raw.githubusercontent.com/Alhyane31/MP/fcdf8a7e8c79e527dcbc2d0cbc688e2fc5ec11fd/FilesMP/AR/${selectedFile}.pdf`,
+                  uri: `@/assets/utils/FilesMP/AR/${selectedFile}.pdf`,
                  }}
                 onLoadComplete={numberOfPages => {
                   console.log(`Number of pages: ${numberOfPages}`);

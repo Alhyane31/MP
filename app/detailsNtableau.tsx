@@ -4,7 +4,7 @@ import { View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground, Sty
   import { WebView } from 'react-native-webview';
 import { useLocalSearchParams ,useRouter} from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import * as FileSystem from 'expo-file-system';
+
 
 import { fetchPathologies,fetchNTABAgents } from '@/assets/utils/databaseC';
 
@@ -18,7 +18,7 @@ const DetailsNtableau = () => {
   const { NTAB } = useLocalSearchParams();
   const [pathologies, setPathologies] = useState<any>([]);
   const [agents, setAgents] = useState<any>([]);
-  const pdfUrl = `https://raw.githubusercontent.com/Alhyane31/MP/main/FilesMP/FR/${selectedFile}.pdf`;
+  const pdfUrl = `https://raw.githubusercontent.com/Alhyane31/MP/cde7e1f8effc5b3ce03d522fc0e84770df2716e6/FilesMP/FR/${selectedFile}.pdf`;
   const [showDownloadView, setShowDownloadView] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const router = useRouter();
@@ -65,7 +65,7 @@ const handleChangeLanguage = () => {
     setSelectedFile(null);
   };
 
- // const url = `https://raw.githubusercontent.com/Alhyane31/MP/fcdf8a7e8c79e527dcbc2d0cbc688e2fc5ec11fd/FilesMP/FR/${selectedFile}.pdf`;
+ // const url = `https://raw.githubusercontent.com/Alhyane31/MP/cde7e1f8effc5b3ce03d522fc0e84770df2716e6/FilesMP/FR/${selectedFile}.pdf`;
 
   return (
     <ImageBackground source={image} resizeMode="cover" style={{ flex: 1, padding: 15 }}>

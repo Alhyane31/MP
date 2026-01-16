@@ -103,7 +103,7 @@ const AgentsScreen = () => {
               <Pdf
                 trustAllCerts={false}
                 source={{
-                  uri: `https://raw.githubusercontent.com/Alhyane31/MP/fcdf8a7e8c79e527dcbc2d0cbc688e2fc5ec11fd/FilesMP/AR/${selectedFile}.pdf`,
+                  uri: `@/assets/utils/FilesMP/AR/${selectedFile}.pdf`,
                 }}
                 onLoadComplete={numberOfPages => {
                   console.log(`Number of pages: ${numberOfPages}`);

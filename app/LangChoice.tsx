@@ -47,7 +47,7 @@ const LangChoice = () => {
           </Animated.View>
         )}
 
-        <Text style={styles.copyrightText}>© 2025 Tous droits réservés.</Text>
+        <Text style={styles.copyrightText}> Copyright © 2025 FD. Tous droits réservés. </Text>
       </View>
     </ImageBackground>
   );

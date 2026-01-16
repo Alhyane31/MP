@@ -7,7 +7,7 @@ import { ImageBackground, StyleSheet, TouchableOpacity, View, Text } from 'react
 const backgroundImg = require('@/assets/images/background1.png');
 
 const home = () => {
- 
+  
   const router = useRouter();
   // Gérer la navigation lorsque l'écran est touché
   const handleScreenTouch = () => {
@@ -15,10 +15,8 @@ const home = () => {
 router.push("/LangChoice");
   };
 
-
-
   return (
-    <TouchableOpacity style={{ flex: 1 }} onPress={handleScreenTouch} activeOpacity={1}>
+    <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={handleScreenTouch}>
       <ImageBackground source={backgroundImg} style={styles.background}>
         <View style={styles.center}>
           <Text style={[styles.text, { marginBottom: 20, textAlign: 'justify', color: 'white', fontWeight: 'bold', fontSize: 16 }]}>
@@ -33,10 +31,7 @@ router.push("/LangChoice");
          <Text style={[styles.copyrightText, { color: 'white', fontWeight: 'bold' }]}>
             
  
-© 2025 Tous droits réservés. | <Link href="/CreditsScreen"><Text style={{ color: 'white', textDecorationLine: 'underline' }}>
-    Crédits
-  </Text>
-</Link>
+ Copyright © 2025 FD. Tous droits réservés.
           </Text>
         </View>
       </ImageBackground>

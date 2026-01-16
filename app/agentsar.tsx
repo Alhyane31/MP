@@ -16,7 +16,7 @@ const AgentsScreen = () => {
   
  const { pathology, pathologyType, PathologyLabelFR, PathologyLabelAR } = useLocalSearchParams();
   const router = useRouter(); // Navigation avec Expo Router
-  const pdfUrl = `https://raw.githubusercontent.com/Alhyane31/MP/main/FilesMP/AR/${selectedFile}.pdf`;
+  const pdfUrl = `https://raw.githubusercontent.com/Alhyane31/MP/cde7e1f8effc5b3ce03d522fc0e84770df2716e6/FilesMP/AR/${selectedFile}.pdf`;
   const [showDownloadView, setShowDownloadView] = useState(false);
   const [countdown, setCountdown] = useState(0);
 
