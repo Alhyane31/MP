@@ -54,5 +54,8 @@ eas submit --platform ios
 git remote set-url origin https://github.com/Alhyane31/mp.git
 git status
 git add .
-git commit -m "remose en store avec nouveau lien doc"
+git commit -m "commit sauvetage "
 git push
+
+eas build --platform ios --profile production
+eas submit --platform ios
