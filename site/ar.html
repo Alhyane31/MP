@@ -28,7 +28,8 @@
     </a>
     <nav class="nav" aria-label="التنقل الرئيسي">
       <a href="#fonctionnalites">التطبيق</a>
-      <a href="tableaux.html">الجداول</a>
+      <a href="recherche-ar.html">البحث</a>
+      <a href="tableaux.html">جداول PDF</a>
       <a href="confidentialite.html">سياسة الخصوصية</a>
       <a class="lang" href="index.html" lang="fr" hreflang="fr">Français</a>
     </nav>
@@ -43,6 +44,10 @@
         <h1>جداول الأمراض المهنية بالمغرب، في متناول يدك.</h1>
         <p class="lead">يقدم لك هذا التطبيق الأنظمة التنظيمية المتعلقة بالأمراض المهنية، المستخرجة من القرار رقم 160-14 بتاريخ 19 ربيع الأول 1435 (21 يناير 2014). ابحث حسب المرض أو العامل الممرض أو رقم الجدول.</p>
         <div class="stores">
+          <a class="store primary" href="recherche-ar.html" style="background: var(--saffron); color: var(--ink)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <span><small>دون تثبيت التطبيق</small>ابحث عبر الإنترنت</span>
+          </a>
           <a class="store primary" href="https://apps.apple.com/ma/app/tmp-maroc/id6743329745" rel="noopener">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.1-1.2 2.9-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.4-1-2.4-3.9zM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z"/></svg>
             <span><small>حمّل من</small>App Store</span>
@@ -54,18 +59,18 @@
         </div>
       </div>
 
-      <div class="phone" aria-hidden="true">
+      <div class="phone">
         <div class="phone-screen">
           <div class="phone-bar">الرئيسية</div>
           <div class="phone-body">
             <div class="phone-top">
-              <span class="logo-frame"><img src="logo.png" alt=""></span>
+              <span class="logo-frame" aria-hidden="true"><img src="logo.png" alt=""></span>
               <span>الأمراض المهنية</span>
             </div>
             <div class="phone-title">عمّا تبحث؟</div>
-            <div class="phone-item"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2847D9" stroke-width="2.2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></i><span><b>الأمراض</b><em>حسب المرض ونوع الإصابة</em></span></div>
-            <div class="phone-item"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2847D9" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></i><span><b>العوامل الممرضة</b><em>البحث عن عامل ممرض</em></span></div>
-            <div class="phone-item"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2847D9" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></i><span><b>رقم الجدول</b><em>الوصول المباشر بالرقم</em></span></div>
+            <a class="phone-item" href="recherche-ar.html#/pathologies"><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2847D9" stroke-width="2.2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></i><span><b>الأمراض</b><em>حسب المرض ونوع الإصابة</em></span></a>
+            <a class="phone-item" href="recherche-ar.html#/agents"><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2847D9" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></i><span><b>العوامل الممرضة</b><em>البحث عن عامل ممرض</em></span></a>
+            <a class="phone-item" href="recherche-ar.html#/tableaux"><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2847D9" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></i><span><b>رقم الجدول</b><em>الوصول المباشر بالرقم</em></span></a>
             <div class="phone-pill">تغيير اللغة إلى الفرنسية · FR</div>
           </div>
         </div>
@@ -90,16 +95,19 @@
             <li>حدّد نوع الإصابة</li>
             <li>اعرض العوامل وجداولها</li>
           </ol>
+          <p style="margin-top: 18px"><a class="btn ghost" href="recherche-ar.html#/pathologies">البحث حسب المرض</a></p>
         </article>
         <article class="card">
           <div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></div>
           <h3>حسب العامل الممرض</h3>
           <p>ابحث عن عامل ممرض باسمه لتجد الأمراض المرتبطة به ورقم الجدول المقابل.</p>
+          <p style="margin-top: 18px"><a class="btn ghost" href="recherche-ar.html#/agents">البحث عن عامل ممرض</a></p>
         </article>
         <article class="card">
           <div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
           <h3>حسب رقم الجدول</h3>
           <p>تعرف الرقم؟ انتقل مباشرة إلى العوامل والأمراض والنص الرسمي بصيغة PDF.</p>
+          <p style="margin-top: 18px"><a class="btn ghost" href="recherche-ar.html#/tableaux">الوصول برقم الجدول</a></p>
         </article>
       </div>
     </div>
