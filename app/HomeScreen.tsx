@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'; 
-import { fetchPathTypes, fetchPathologyTypes ,updatePathologyHistory} from '@/assets/utils/databaseC';
+import { fetchPathTypes, fetchPathologyTypes ,updatePathologyHistory} from '@/assets/utils/api';
 import { 
   View, 
   Text, 
   TouchableOpacity, 
   StyleSheet, 
-  ImageBackground, 
   Modal, 
   FlatList
 } from 'react-native';
 import { useRouter } from 'expo-router';
 
-const backgroundImg = require('@/assets/images/background.png');
+import { Feather } from '@expo/vector-icons';
+import { BRAND, FONT, RADIUS } from '../constants/Brand';
 
 interface PathologyType {
   ID: number;
@@ -64,21 +64,31 @@ const HomeScreen = () => {
     setModalVisible(false);
   };
 
+  const stepOneDone = Boolean(selectedPathology);
+  const stepTwoDone = Boolean(selectedPathologyType);
+
   return (
-    <ImageBackground source={backgroundImg} resizeMode="cover" style={styles.background}>
-      
+    <View style={styles.background}>
       <View style={styles.container}>
+        <Text style={styles.title}>Rechercher par pathologie</Text>
         <View style={styles.card}>
-          <Text style={styles.label}>Pathologies</Text>
-          <TouchableOpacity onPress={() => { setModalVisible(true); setModalType('pathology'); }} style={styles.selectBox}>
-            <Text>{selectedPathology ? pathologies.find(p => p.ID.toString() === selectedPathology)?.LibelleFR : 'Sélectionnez une pathologie'}</Text>
+          <View style={styles.stepRow}>
+            <View style={[styles.stepDot, styles.stepDotActive]}><Text style={styles.stepDotTextActive}>1</Text></View>
+            <Text style={styles.label}>Pathologies</Text>
+          </View>
+          <TouchableOpacity onPress={() => { setModalVisible(true); setModalType('pathology'); }} style={[styles.selectBox, stepOneDone && styles.selectBoxFilled]}>
+            <Text style={[styles.selectText, !stepOneDone && styles.placeholder]} numberOfLines={2}>{selectedPathology ? pathologies.find(p => p.ID.toString() === selectedPathology)?.LibelleFR : 'Sélectionnez une pathologie'}</Text>
+            <Feather name="chevron-down" size={20} color={stepOneDone ? BRAND.majorelle : BRAND.slate} />
           </TouchableOpacity>
-          
-          <Text style={styles.label}>Type d'atteinte</Text>
-          <TouchableOpacity onPress={() => { setModalVisible(true); setModalType('pathologyType'); }} style={[styles.selectBox, !selectedPathology && styles.disabledSelectBox]} disabled={!selectedPathology}>
-            <Text>{selectedPathologyType ? pathologyTypes.find(pt => pt.ID.toString() === selectedPathologyType)?.LibelleFR : 'Sélectionnez type d\'atteinte'}</Text>
+
+          <View style={[styles.stepRow, !stepOneDone && styles.dim]}>
+            <View style={[styles.stepDot, stepOneDone && styles.stepDotActive]}><Text style={stepOneDone ? styles.stepDotTextActive : styles.stepDotText}>2</Text></View>
+            <Text style={styles.label}>Type d'atteinte</Text>
+          </View>
+          <TouchableOpacity onPress={() => { setModalVisible(true); setModalType('pathologyType'); }} style={[styles.selectBox, stepTwoDone && styles.selectBoxFilled, !selectedPathology && styles.disabledSelectBox]} disabled={!selectedPathology}>
+            <Text style={[styles.selectText, !stepTwoDone && styles.placeholder]} numberOfLines={2}>{selectedPathologyType ? pathologyTypes.find(pt => pt.ID.toString() === selectedPathologyType)?.LibelleFR : 'Sélectionnez type d\'atteinte'}</Text>
+            <Feather name="chevron-down" size={20} color={stepTwoDone ? BRAND.majorelle : BRAND.slate} />
           </TouchableOpacity>
-          
 
           <TouchableOpacity
             style={[styles.button, !selectedPathologyType && styles.disabledButton]}
@@ -89,18 +99,24 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      
-      <Modal visible={modalVisible} animationType="slide" transparent>
+
+      <Modal visible={modalVisible} animationType="slide" transparent onRequestClose={() => setModalVisible(false)}>
         <View style={styles.modalContainer}>
+          <TouchableOpacity style={StyleSheet.absoluteFill} onPress={() => setModalVisible(false)} />
           <View style={styles.modalContent}>
+            <View style={styles.handle} />
+            <Text style={styles.modalTitle}>{modalType === 'pathology' ? "Pathologies" : "Type d'atteinte"}</Text>
             <FlatList
               data={modalType === 'pathology' ? pathologies : pathologyTypes}
               keyExtractor={(item) => item.ID.toString()}
-              renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => handleSelection(item.ID.toString())} style={styles.modalItem}>
-                  <Text style={styles.modalItemText}>{item.LibelleFR}</Text>
-                </TouchableOpacity>
-              )}
+              renderItem={({ item }) => {
+                const selected = item.ID.toString() === (modalType === 'pathology' ? selectedPathology : selectedPathologyType);
+                return (
+                  <TouchableOpacity onPress={() => handleSelection(item.ID.toString())} style={[styles.modalItem, selected && styles.modalItemActive]}>
+                    <Text style={[styles.modalItemText, selected && styles.modalItemTextActive]}>{item.LibelleFR}</Text>
+                  </TouchableOpacity>
+                );
+              }}
             />
             <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
               <Text style={styles.closeButtonText}>Fermer</Text>
@@ -108,33 +124,47 @@ const HomeScreen = () => {
           </View>
         </View>
       </Modal>
-    </ImageBackground>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  background: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  container: { width: '90%', alignItems: 'center' },
-  card: { backgroundColor: 'white', width: '100%', padding: 20, borderRadius: 6, elevation: 5 },
-  label: { fontSize: 20, fontWeight: 'bold', color: '#233b67', marginBottom: 5 },
-  selectBox: { padding: 15, backgroundColor: '#ddd', borderRadius: 6, marginBottom: 20, alignItems: 'center' },
-  disabledSelectBox: { backgroundColor: '#A9A9A9' },
-  button: { backgroundColor: '#233b67', paddingVertical: 10, borderRadius: 6, alignItems: 'center', marginTop: 5 },
-  disabledButton: { backgroundColor: '#A9A9C9' },
-  buttonText: { color: 'white', fontSize: 18, fontWeight: 'bold' },
-  modalContainer: { flex: 1, alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' },
-  modalContent: {   position: 'absolute',
-    backgroundColor: 'white',
-    bottom: 0,
+  background: { flex: 1, backgroundColor: BRAND.chalk },
+  container: { padding: 20 },
+  title: { fontFamily: FONT.bold, fontSize: 24, color: BRAND.ink, marginBottom: 16, textAlign: 'left' },
+  card: { backgroundColor: BRAND.white, padding: 20, borderRadius: RADIUS.lg, borderWidth: 1, borderColor: BRAND.border },
+  stepRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 },
+  dim: { opacity: 0.5 },
+  stepDot: { width: 22, height: 22, borderRadius: 11, backgroundColor: BRAND.mist, alignItems: 'center', justifyContent: 'center' },
+  stepDotActive: { backgroundColor: BRAND.majorelle },
+  stepDotText: { fontFamily: FONT.bold, fontSize: 12, color: BRAND.majorelleDark },
+  stepDotTextActive: { fontFamily: FONT.bold, fontSize: 12, color: BRAND.white },
+  label: { fontFamily: FONT.semibold, fontSize: 12, color: BRAND.slateDark, letterSpacing: 0.8, textTransform: 'uppercase' },
+  selectBox: { flexDirection: 'row', alignItems: 'center', gap: 10, minHeight: 52, paddingHorizontal: 14, paddingVertical: 12, backgroundColor: BRAND.chalk, borderWidth: 1, borderColor: BRAND.borderStrong, borderRadius: RADIUS.md, marginBottom: 20 },
+  selectBoxFilled: { backgroundColor: BRAND.white, borderWidth: 2, borderColor: BRAND.majorelle },
+  selectText: { flex: 1, fontFamily: FONT.medium, fontSize: 15, color: BRAND.ink, textAlign: 'left' },
+  placeholder: { fontFamily: FONT.regular, color: BRAND.slate },
+  disabledSelectBox: { opacity: 0.5 },
+  button: { backgroundColor: BRAND.majorelle, height: 52, borderRadius: RADIUS.md, alignItems: 'center', justifyContent: 'center' },
+  disabledButton: { backgroundColor: BRAND.disabled },
+  buttonText: { color: BRAND.white, fontSize: 16, fontFamily: FONT.semibold },
+  modalContainer: { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(15,34,56,0.5)' },
+  modalContent: {
+    backgroundColor: BRAND.white,
     width: '100%',
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    borderTopLeftRadius: RADIUS.lg,
+    borderTopRightRadius: RADIUS.lg,
     maxHeight: '80%', // Limite la hauteur pour permettre le scroll
-    padding: 20},
-  modalItem: { padding: 15, borderBottomWidth: 1, borderBottomColor: '#ddd' },
-  modalItemText: { fontSize: 18 },
-  closeButton: { padding: 15, backgroundColor: '#233b67', borderRadius: 6, marginTop: 10, alignItems: 'center' },
-  closeButtonText: { color: 'white', fontSize: 16 }
+    padding: 20,
+  },
+  handle: { width: 40, height: 4, borderRadius: 2, backgroundColor: BRAND.borderStrong, alignSelf: 'center', marginBottom: 14 },
+  modalTitle: { fontFamily: FONT.bold, fontSize: 17, color: BRAND.ink, marginBottom: 10, textAlign: 'left' },
+  modalItem: { paddingVertical: 14, paddingHorizontal: 10, borderRadius: RADIUS.sm, borderBottomWidth: 1, borderBottomColor: '#EDF0F5' },
+  modalItemActive: { backgroundColor: BRAND.mist, borderBottomColor: BRAND.mist },
+  modalItemText: { fontFamily: FONT.regular, fontSize: 16, color: BRAND.ink, textAlign: 'left' },
+  modalItemTextActive: { fontFamily: FONT.semibold, color: BRAND.majorelleDark },
+  closeButton: { height: 52, borderRadius: RADIUS.md, marginTop: 12, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: BRAND.borderStrong },
+  closeButtonText: { fontFamily: FONT.semibold, color: BRAND.ink, fontSize: 16 }
 });
 
 export default HomeScreen;

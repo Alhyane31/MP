@@ -1,29 +1,28 @@
-import { Text, View } from 'native-base';
-import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
-import LottieView from 'lottie-react-native';
-import { ImageBackground } from 'react-native';
+import React, { useEffect, Dispatch, SetStateAction } from 'react';
+import { StyleSheet } from 'react-native';
+import { WebView } from 'react-native-webview';
+import { SPLASH_HTML } from '../assets/splashHtml';
 
-interface SplashProps{
+interface SplashProps {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-  
-  
-     }
-export default function Splash({setIsLoading}:SplashProps):JSX.Element{
-  const backgroundImg = require('../assets/images/background.png');
-  return (
-
-    <ImageBackground source={backgroundImg} style={{ flex: 1 }}>
-      <LottieView style={{flex:1}} source={require('../assets/Animation.json')}
-      autoPlay
-      loop ={false}
-      resizeMode="cover"
-      onAnimationFinish={()=> setIsLoading(false)
-       
-      }
-      
-      />
- </ImageBackground>
-
-   
-  )
 }
+
+export default function Splash({ setIsLoading }: SplashProps): JSX.Element {
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 3500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <WebView
+      source={{ html: SPLASH_HTML }}
+      style={StyleSheet.absoluteFill}
+      scrollEnabled={false}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      overScrollMode="never"
+    />
+  );
+}
+
+const styles = StyleSheet.create({});

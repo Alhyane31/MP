@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
+﻿import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import FontAwesome from 'react-native-vector-icons/Feather';
-import { fetchAllAgents ,updateAgentsHistory} from '@/assets/utils/databaseC';
+import { Feather } from '@expo/vector-icons';
+import { fetchAllAgents, updateAgentsHistory } from '@/assets/utils/api';
+import { BRAND, listStyles as styles } from '../constants/Brand';
 
-const image = require('@/assets/images/background.png');
 interface Agent {
   LibelleFR: string;
    ID: number;
@@ -32,81 +32,39 @@ const AgentsScreen = () => {
     return agents.filter(agent => regex.test(agent.LibelleAR) || regex.test(agent.NTAB));
   };
 
+  const openAgent = async (item: Agent) => {
+    console.log(item.ID);
+    await updateAgentsHistory(parseInt(String(item.ID), 10));
+    router.push({ pathname: '/detailsagentAR', params: { NTAB : item.NTAB,LibelleFR : item.LibelleFR,LibelleAR : item.LibelleAR} });
+  };
+
   return (
-    <ImageBackground source={image} resizeMode="cover" style={styles.container}>
-      <View style={styles.header}>
+    <View style={styles.screen}>
+      <View style={styles.searchBar}>
         <TextInput
-          style={[styles.searchInput, { textAlign: 'right' }]}
+          style={[styles.searchInput, styles.searchInputAr]}
           value={searchTerm}
           onChangeText={setSearchTerm}
-          placeholder="بحث"
-          placeholderTextColor="#555"
+          placeholder="البحث عن عامل أو رقم جدول"
+          placeholderTextColor={BRAND.slate}
         />
       </View>
       <FlatList
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={styles.listContent}
         data={searchAgents(searchTerm).sort((a, b) => a.LibelleAR.localeCompare(b.LibelleAR))}
         keyExtractor={(item) => item.ID.toString()}
         renderItem={({ item }) => (
-          <View style={styles.listItem}>
-            <TouchableOpacity onPress={async() =>{console.log(item.ID);await updateAgentsHistory(parseInt(item.ID, 10));router.push({ pathname: '/detailsagentAR', params: { NTAB : item.NTAB,LibelleFR : item.LibelleFR,LibelleAR : item.LibelleAR} })}}>
-              <FontAwesome name="info" size={28} color="black" />
-            </TouchableOpacity>
-          
-            <View style={styles.textContainer}>
-              <Text style={[styles.info, { textAlign: 'right', fontSize: 16 }]}>{item.LibelleAR}</Text>
-              <Text style={[styles.info, { textAlign: 'right', fontWeight: 'bold'  }]}>رقم الجدول : {item.NTAB}</Text>
+          <TouchableOpacity style={styles.card} activeOpacity={0.75} onPress={() => openAgent(item)}>
+            <Feather name="chevron-left" size={22} color={BRAND.majorelle} />
+            <View style={styles.cardText}>
+              <Text style={[styles.title, styles.titleAr]}>{item.LibelleAR}</Text>
+              <View style={[styles.chip, styles.chipAr]}><Text style={[styles.chipText, styles.chipTextAr]}>رقم الجدول {item.NTAB}</Text></View>
             </View>
-            </View>
+          </TouchableOpacity>
         )}
       />
-    </ImageBackground>
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    backgroundColor: '#233b67',
-    padding: 15,
-    alignItems: 'center',
-  },
-  searchInput: {
-    backgroundColor: 'white',
-    width: '100%',
-    padding: 10,
-    borderRadius: 8,
-  },
-  listContainer: {
-    padding: 15,
-  },
-  listItem: {
-    backgroundColor: 'white',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  textContainer: {
-    width: '80%',
-  },
-  name: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  info: {
-    fontSize: 14,
-    color: '#555',
-  },
-});
 
 export default AgentsScreen;

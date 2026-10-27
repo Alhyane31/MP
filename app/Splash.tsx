@@ -1,32 +1,35 @@
-import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
-import LottieView from 'lottie-react-native';
-import { ImageBackground } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import { useRouter } from 'expo-router';
+import { SPLASH_HTML } from '@/assets/splashHtml';
 
-interface SplashProps {
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
-}
+const INJECTED_JS = `
+  document.body.addEventListener('click', function() {
+    window.ReactNativeWebView.postMessage('navigate');
+  });
+  true;
+`;
 
-export default function Splash({ setIsLoading }: SplashProps): JSX.Element {
-  const backgroundImg = require('@/assets/images/background.png');
+export default function Splash(): React.ReactElement {
   const router = useRouter();
 
-  useEffect(() => {
-    setTimeout(() => {
-      router.replace('/home');//
-    }, 2000); // Attendre 2 secondes
-  }, [router]); // Ajout de `router` comme dépendance
+  const handleMessage = (event: WebViewMessageEvent) => {
+    if (event.nativeEvent.data === 'navigate') {
+      router.replace('/home');
+    }
+  };
 
   return (
-    <ImageBackground source={backgroundImg} style={{ flex: 1 }}>
-      <LottieView
-        style={{ flex: 1 }}
-        source={require('@/assets/Animation.json')}
-        autoPlay
-        loop={false}
-        resizeMode="cover"
-        onAnimationFinish={() => setIsLoading(false)}
-      />
-    </ImageBackground>
+    <WebView
+      source={{ html: SPLASH_HTML }}
+      style={StyleSheet.absoluteFill}
+      scrollEnabled={false}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      overScrollMode="never"
+      injectedJavaScript={INJECTED_JS}
+      onMessage={handleMessage}
+    />
   );
 }

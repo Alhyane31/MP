@@ -11,6 +11,19 @@ import { Slot } from 'expo-router';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context'; // ✅ ici
 import { StyleSheet } from 'react-native';
+import {
+  IBMPlexSans_400Regular,
+  IBMPlexSans_500Medium,
+  IBMPlexSans_600SemiBold,
+  IBMPlexSans_700Bold,
+} from '@expo-google-fonts/ibm-plex-sans';
+import {
+  IBMPlexSansArabic_400Regular,
+  IBMPlexSansArabic_500Medium,
+  IBMPlexSansArabic_600SemiBold,
+  IBMPlexSansArabic_700Bold,
+} from '@expo-google-fonts/ibm-plex-sans-arabic';
+import { BRAND, FONT } from '../constants/Brand';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -20,6 +33,14 @@ export default function RootLayout() {
   console.log("1");
  const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    IBMPlexSans_400Regular,
+    IBMPlexSans_500Medium,
+    IBMPlexSans_600SemiBold,
+    IBMPlexSans_700Bold,
+    IBMPlexSansArabic_400Regular,
+    IBMPlexSansArabic_500Medium,
+    IBMPlexSansArabic_600SemiBold,
+    IBMPlexSansArabic_700Bold,
   });
   console.log("2");
   useEffect(() => {
@@ -35,13 +56,16 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <SafeAreaView style={styles.container} edges={['bottom']}>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <SQLiteProvider databaseName="MP.db" onInit={migrateDbIfNeeded}>
       <Stack  screenOptions={{
-          headerStyle: { backgroundColor: '#1D304C' },
-          headerTintColor: '#fff', // Couleur du texte de l'en-tête
+          headerStyle: { backgroundColor: BRAND.ink },
+          headerTintColor: BRAND.white, // Couleur du texte de l'en-tête
           headerTitleAlign: 'center', // Centre le texte de l'en-tête
+          headerTitleStyle: { fontFamily: FONT.semibold, fontSize: 17 },
+          headerShadowVisible: false,
+          contentStyle: { backgroundColor: BRAND.chalk },
       
         }}>
         <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -85,6 +109,6 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1D304C',
+    backgroundColor: BRAND.ink,
   },
 });
