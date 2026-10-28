@@ -24,6 +24,7 @@ import {
   IBMPlexSansArabic_700Bold,
 } from '@expo-google-fonts/ibm-plex-sans-arabic';
 import { BRAND, FONT } from '../constants/Brand';
+import AppGate from '../components/brand/AppGate';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -96,7 +97,7 @@ export default function RootLayout() {
         <Stack.Screen name="+not-found" />
       </Stack>
     </SQLiteProvider>
-      
+      <AppGate />
       <StatusBar style="light" />
     </ThemeProvider>
     </SafeAreaView>
