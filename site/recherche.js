@@ -284,7 +284,7 @@
         s2.classList.toggle('filled', !!s2.value);
         go.disabled = !s2.value;
       });
-      go.addEventListener('click', function () { if (s2.value) location.hash = '#/pathologie/' + s2.value; });
+      go.addEventListener('click', function () { if (s2.value) location.hash = '#/pathologie/' + s2.value + '/' + s1.value; });
 
       screen(T.byPath, '', [h('div', { class: 'panel' }, [
         h('div', { class: 'step' }, [
@@ -297,13 +297,36 @@
     }).catch(function () { showError(tk); });
   }
 
-  function viewPathology(id) {
+  // Retrouve une pathologie par son ID (après actualisation, les libellés mémorisés sont perdus) :
+  // via son type d'atteinte s'il est dans le lien, sinon en parcourant tous les types.
+  function findPath(id, pt) {
+    if (labels['p:' + id]) return Promise.resolve(labels['p:' + id]);
+    var types = pt ? Promise.resolve([{ ID: pt }]) : api('pathtype.php');
+    return types.then(function (list) {
+      return Promise.all(list.map(function (t) {
+        return api('paths.php', { pathTypeID: t.ID }).then(function (paths) {
+          paths.forEach(function (x) { labels['p:' + x.ID] = x; });
+        }, function () {});
+      }));
+    }).then(function () { return labels['p:' + id] || null; });
+  }
+
+  function viewPathology(id, pt) {
     var tk = token;
     var p = labels['p:' + id];
-    var title = p ? label(p) : T.agents;
+    var title = p ? label(p) : '…';
     screen(null, 'pathologies', [band(null, title), h('p', { class: 'section-label', text: T.agents }), status(T.loading)]);
-    api('agents.php', { pathID: id }).then(function (agents) {
+    Promise.all([
+      api('agents.php', { pathID: id }),
+      findPath(id, pt).catch(function () { return null; })
+    ]).then(function (res) {
       if (tk !== token) return;
+      var agents = res[0];
+      if (res[1]) {
+        title = label(res[1]);
+        // le retour vers « Pathologies » retrouve la sélection
+        if (!state.p) { state.pt = String(res[1].PathTypeID || pt || ''); state.p = String(id); }
+      } else if (!p) title = T.agents;
       agents = agents.slice().sort(byLabel);
       agents.forEach(function (a) { labels['a:' + a.ID] = a; });
       screen(null, 'pathologies', [
@@ -402,7 +425,7 @@
     window.scrollTo(0, 0);
     switch (parts[0]) {
       case 'pathologies': return viewPathologies();
-      case 'pathologie': return viewPathology(parts[1]);
+      case 'pathologie': return viewPathology(parts[1], parts[2]);
       case 'agents': return viewAgents();
       case 'agent': return viewAgent(parts[1]);
       case 'tableaux': return viewTableaux();
